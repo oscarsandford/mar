@@ -12,9 +12,16 @@ fave_manga = user_faves.find_all(class_="di-tc")[1]
 fave_chars = user_faves.find_all(class_="di-tc")[2]
 fave_peopl = user_faves.find_all(class_="di-tc")[3]
 
+print(user_faves)
+
 # print out titles off amykyst's favourite anime
 for series in fave_anime.find_all(class_="list di-t mb8"):
     title = series.find(class_="di-tc va-t pl8 data").get_text()
     title = title.replace("  ", "")
     title = title.replace("\n", "")
     print(title)
+
+from AmyList import Series
+
+show = Series("https://myanimelist.net/anime/205/Samurai_Champloo")
+print(show)
