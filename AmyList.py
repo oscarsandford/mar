@@ -7,6 +7,7 @@ class Story():
     def __init__(self, url):
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
+        self.validity = True
         # Any errors in gathering story data will make story invalid
         try:
             self.title = soup.find_all(class_='spaceit_pad')[0].get_text().split('English: ')[1].split('\n')[0]
@@ -17,6 +18,7 @@ class Story():
             print('Something wrong with story..\t', url)
             print('Exception: ', e,'\n')
             self.title, self.score, self.rank, self.episodes = 'error', 0, 0, 0
+            self.validity = False
 
     def get_title(self):
         return self.title
@@ -30,6 +32,9 @@ class Story():
     def get_episodes(self):
         return self.episodes
 
+    def is_valid(self):
+        return self.validity
+
     def __str__(self):
         s = '\nTitle: ' + self.title
         s += '\nScore: ' + str(format(self.score, '.2f'))
@@ -40,12 +45,28 @@ class Story():
 
 class Profile():
 
+    # Given MAL username, retrieve user profile page data
+    def __init__(self, username):
+        # Get soup and categories
+        self.username = username
+
+        # Set favourite anime and manga
+        self.favourite_anime = self.favourite_stories('anime')
+        self.favourite_manga = self.favourite_stories('manga')
+
+        #self.anime_list = self.all_stories('anime')
+
     # Find user's favourite anime or manga
     def favourite_stories(self, category):
+        url = 'https://myanimelist.net/profile/' + self.username
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        list = soup.find('ul', attrs={'class':'favorites-list '+category})
+
         stories = []
         # Try if user has a list of favourites in this category
         try:
-            for entry in category.find_all(class_='di-tc va-t pl8 data'):
+            for entry in list.find_all(class_='di-tc va-t pl8 data'):
                 for link in entry.find_all('a', href=True):
                     # got the link!
                     story = Story(str(link['href']))
@@ -53,32 +74,25 @@ class Profile():
         # If not, return an empty list
         except:
             return []
-
         return stories
 
-    # Find user's favourite characters or people
-    def favourite_beings(self):
-        pass
-
-    # Given URL, retrieve user profile data
-    def __init__(self, url):
-        # Get soup and categories
+    # Find user's all anime list
+    def all_stories(self, category):
+        url = 'https://myanimelist.net/' + category +'list/'+ self.username
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
-        category = ['anime', 'manga', 'characters', 'people']
 
-        # Set favourite anime and manga
-        anime = soup.find('ul', attrs={'class':'favorites-list '+category[0]})
-        manga = soup.find('ul', attrs={'class':'favorites-list '+category[1]})
-        self.favourite_anime = self.favourite_stories(anime)
-        self.favourite_manga = self.favourite_stories(manga)
+        for entry in soup.find_all('tbody', attrs={'class':'list-item'}):
+            # WIP
+            print(entry.get_text())
+
 
     def get_fave_anime(self):
         for story in self.favourite_anime:
-            if story.get_title() != 'error':
+            if story.is_valid():
                 print(story)
 
     def get_fave_manga(self):
         for story in self.favourite_manga:
-            if story.get_title() != 'error':
+            if story.is_valid():
                 print(story)
