@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import requests
 from bs4 import BeautifulSoup
 
@@ -25,3 +24,7 @@ for series in fave_anime.find_all(class_='list di-t mb8'):
 for string in user_faves.strings:
     if string != '\n':
         print(repr(string))
+
+# basic story class
+show = Story('https://myanimelist.net/anime/205/Samurai_Champloo')
+print(show)

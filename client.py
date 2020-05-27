@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
-from bs4 import BeautifulSoup
-import requests
 
 from AmyList import Story, Profile
 
-user = 'amykyst'
+user1 = 'amykyst'
+user2 = 'winstonmanatee'
+user3 = 'lanzer001'
 
-show = Story('https://myanimelist.net/anime/205/Samurai_Champloo')
-print(show)
+user_profile = Profile('https://myanimelist.net/profile/' + user1)
 
-user_profile = Profile('https://myanimelist.net/profile/' + user)
+print(user_profile.get_fave_anime())
+print('------------------------------')
+print(user_profile.get_fave_manga())
 
-print(user_profile.get_faves())
+# TODO: it seems manga and anime movies are giving me issues
+# - movies: Your Name and Silent Voice don't work
+# - manga: MF Ghost, SDS, FSN:HF, etc
