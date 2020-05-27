@@ -7,9 +7,9 @@ class Story():
     def __init__(self, url):
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
-        self.validity = True
         # Any errors in gathering story data will make story invalid
         try:
+            # TODO: Fix out of bounds and NoneType errors
             self.title = soup.find_all(class_='spaceit_pad')[0].get_text().split('English: ')[1].split('\n')[0]
             self.score = float(soup.find(class_='score-label score-8').get_text())
             self.rank = int(soup.find('span', {'class':'numbers ranked'}).find('strong').get_text().split('#')[1])
@@ -18,7 +18,6 @@ class Story():
             print('Something wrong with story..\t', url)
             print('Exception: ', e,'\n')
             self.title, self.score, self.rank, self.episodes = 'error', 0, 0, 0
-            self.validity = False
 
     def get_title(self):
         return self.title
@@ -32,9 +31,6 @@ class Story():
     def get_episodes(self):
         return self.episodes
 
-    def is_valid(self):
-        return self.validity
-
     def __str__(self):
         s = '\nTitle: ' + self.title
         s += '\nScore: ' + str(format(self.score, '.2f'))
@@ -47,13 +43,12 @@ class Profile():
 
     # Given MAL username, retrieve user profile page data
     def __init__(self, username):
-        # Get soup and categories
         self.username = username
-
         # Set favourite anime and manga
         #self.favourite_anime = self.favourite_stories('anime')
         #self.favourite_manga = self.favourite_stories('manga')
-        # Set user lists (watching, completed, etc)
+
+        # Set lists (watching, completed, ptw, etc.)
         self.anime_list = self.all_stories('anime')
 
     # Find user's favourite anime or manga
@@ -76,40 +71,35 @@ class Profile():
             return []
         return stories
 
-    # Find user's all anime list
+
+    # Find all anime from user list
     def all_stories(self, category):
         url = 'https://myanimelist.net/' + category +'list/'+ self.username
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
         stories = []
 
-        # Get rid of the other table contents
+        # Get rid of the other table contents, isolate data
         contents = soup.find('table', {'class':'list-table'})
         for t in contents('tbody'):
             t.decompose()
-
         data = contents['data-items']
-        story_urls = []
-        # look for str = category + '_url'
+
+        # Divvy up urls appearances
         sections = data.split(category + '_url\":\"')
         for i in range(1, len(sections)):
+            # Split on last " and remove redundant backslashes
             link = sections[i].split("\"")[0].replace('\\', '')
-            story_urls.append(link)
-
-        count = 0
-        for st in story_urls:
-            print(st)
-            count += 1
-        print(count)
+            story = Story('https://myanimelist.net/' + link)
+            stories.append(story)
 
         return stories
 
     def get_fave_anime(self):
-        for story in self.favourite_anime:
-            if story.is_valid():
-                print(story)
+        return self.favourite_anime
 
     def get_fave_manga(self):
-        for story in self.favourite_manga:
-            if story.is_valid():
-                print(story)
+        return self.favourite_manga
+
+    def get_anime_list(self):
+        return self.anime_list
