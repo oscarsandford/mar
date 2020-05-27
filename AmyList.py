@@ -12,7 +12,7 @@ class Story():
         try:
             self.title = soup.find_all(class_='spaceit_pad')[0].get_text().split('English: ')[1].split('\n')[0]
             self.score = float(soup.find(class_='score-label score-8').get_text())
-            self.rank = int(soup.find('span', attrs={'class':'numbers ranked'}).find('strong').get_text().split('#')[1])
+            self.rank = int(soup.find('span', {'class':'numbers ranked'}).find('strong').get_text().split('#')[1])
             self.episodes = int(soup.find_all(class_='spaceit')[3].get_text().split('/')[1])
         except Exception as e:
             print('Something wrong with story..\t', url)
@@ -51,10 +51,10 @@ class Profile():
         self.username = username
 
         # Set favourite anime and manga
-        self.favourite_anime = self.favourite_stories('anime')
-        self.favourite_manga = self.favourite_stories('manga')
-
-        #self.anime_list = self.all_stories('anime')
+        #self.favourite_anime = self.favourite_stories('anime')
+        #self.favourite_manga = self.favourite_stories('manga')
+        # Set user lists (watching, completed, etc)
+        self.anime_list = self.all_stories('anime')
 
     # Find user's favourite anime or manga
     def favourite_stories(self, category):
@@ -81,11 +81,28 @@ class Profile():
         url = 'https://myanimelist.net/' + category +'list/'+ self.username
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
+        stories = []
 
-        for entry in soup.find_all('tbody', attrs={'class':'list-item'}):
-            # WIP
-            print(entry.get_text())
+        # Get rid of the other table contents
+        contents = soup.find('table', {'class':'list-table'})
+        for t in contents('tbody'):
+            t.decompose()
 
+        data = contents['data-items']
+        story_urls = []
+        # look for str = category + '_url'
+        sections = data.split(category + '_url\":\"')
+        for i in range(1, len(sections)):
+            link = sections[i].split("\"")[0].replace('\\', '')
+            story_urls.append(link)
+
+        count = 0
+        for st in story_urls:
+            print(st)
+            count += 1
+        print(count)
+
+        return stories
 
     def get_fave_anime(self):
         for story in self.favourite_anime:
