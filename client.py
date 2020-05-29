@@ -10,13 +10,10 @@ user4 = 'frosty114'
 def main():
     user_profile = Profile(user4)
 
-    anime = user_profile.get_anime_list()
+    li = user_profile.get_anime_list()
+    print(li)
 
-    for entry in anime:
-        if entry.get_title() != 'error':
-            print(entry.get_title())
 
-    print('Total Entries:', len(anime))
 
 if __name__ == '__main__':
     main()

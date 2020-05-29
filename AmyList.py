@@ -52,6 +52,7 @@ class Profile():
         self.anime_list = self.all_stories('anime')
 
     # Find user's favourite anime or manga
+    # TODO: deprecate this at some point
     def favourite_stories(self, category):
         url = 'https://myanimelist.net/profile/' + self.username
         response = requests.get(url)
@@ -77,23 +78,27 @@ class Profile():
         url = 'https://myanimelist.net/' + category +'list/'+ self.username
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
-        stories = []
+        stories_dict = {}
 
         # Get rid of the other table contents, isolate data
         contents = soup.find('table', {'class':'list-table'})
         for t in contents('tbody'):
             t.decompose()
         data = contents['data-items']
+        # Sort out and make stories with the urls
 
-        # Divvy up urls appearances
-        sections = data.split(category + '_url\":\"')
-        for i in range(1, len(sections)):
+        links = data.split(category + '_url\":\"')
+        scores = data.split('\"score\":')
+        assert len(links) == len(scores)
+
+        for i in range(1, len(links)):
             # Split on last " and remove redundant backslashes
-            link = sections[i].split("\"")[0].replace('\\', '')
+            link = links[i].split('\"')[0].replace('\\', '')
+            score = int(scores[i].split('\"')[0].replace(',', ''))
             story = Story('https://myanimelist.net/' + link)
-            stories.append(story)
+            stories_dict[story] = score
 
-        return stories
+        return stories_dict
 
     def get_fave_anime(self):
         return self.favourite_anime
@@ -102,4 +107,7 @@ class Profile():
         return self.favourite_manga
 
     def get_anime_list(self):
-        return self.anime_list
+        s = ''
+        for anime, score in self.anime_list.items():
+            s += '(' + str(score) + ')\t' + anime.get_title() + '\n'
+        return s
