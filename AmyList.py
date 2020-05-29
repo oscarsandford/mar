@@ -7,17 +7,25 @@ class Story():
     def __init__(self, url):
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
+        self.title, self.score, self.rank, self.episodes, self.my_rating = 'error', 0.0, 0, 0, 0
         # Any errors in gathering story data will make story invalid
         try:
             # TODO: Fix out of bounds and NoneType errors
+            # !!!! title: index out of range on next line sometimes
             self.title = soup.find_all(class_='spaceit_pad')[0].get_text().split('English: ')[1].split('\n')[0]
+            print('found title ok')
+            # !!!! score: null pointer on next line sometimes
             self.score = float(soup.find(class_='score-label score-8').get_text())
+            print('found score ok')
+            # !! rank: issue with Demon Slayer movie story, index out of range
             self.rank = int(soup.find('span', {'class':'numbers ranked'}).find('strong').get_text().split('#')[1])
+            print('found rank ok')
             self.episodes = int(soup.find_all(class_='spaceit')[3].get_text().split('/')[1])
+            print('found episodes ok\n')
         except Exception as e:
             print('Something wrong with story..\t', url)
             print('Exception: ', e,'\n')
-            self.title, self.score, self.rank, self.episodes = 'error', 0, 0, 0
+
 
     def get_title(self):
         return self.title
@@ -30,6 +38,12 @@ class Story():
 
     def get_episodes(self):
         return self.episodes
+
+    def set_my_rating(self, score):
+        self.my_rating = score
+
+    def get_my_rating(self):
+        return self.my_rating
 
     def __str__(self):
         s = '\nTitle: ' + self.title
@@ -78,7 +92,7 @@ class Profile():
         url = 'https://myanimelist.net/' + category +'list/'+ self.username
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
-        stories_dict = {}
+        stories = []
 
         # Get rid of the other table contents, isolate data
         contents = soup.find('table', {'class':'list-table'})
@@ -95,10 +109,11 @@ class Profile():
             # Split on last " and remove redundant backslashes
             link = links[i].split('\"')[0].replace('\\', '')
             score = int(scores[i].split('\"')[0].replace(',', ''))
-            story = Story('https://myanimelist.net/' + link)
-            stories_dict[story] = score
+            story = Story('https://myanimelist.net' + link)
+            story.set_my_rating(score)
+            stories.append(story)
 
-        return stories_dict
+        return stories
 
     def get_fave_anime(self):
         return self.favourite_anime
@@ -108,6 +123,6 @@ class Profile():
 
     def get_anime_list(self):
         s = ''
-        for anime, score in self.anime_list.items():
-            s += '(' + str(score) + ')\t' + anime.get_title() + '\n'
+        for anime in self.anime_list:
+            s += '(' + str(anime.get_my_rating()) + ')\t' +anime.get_title() + '\n'
         return s
