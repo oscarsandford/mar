@@ -10,18 +10,21 @@ class Story():
         self.title, self.score, self.rank, self.episodes, self.my_rating = 'error', 0.0, 0, 0, 0
         # Any errors in gathering story data will make story invalid
         try:
-            # TODO: Fix out of bounds and NoneType errors
-            # !!!! title: index out of range on next line sometimes
-            self.title = soup.find_all(class_='spaceit_pad')[0].get_text().split('English: ')[1].split('\n')[0]
-            print('found title ok')
-            # !!!! score: null pointer on next line sometimes
-            self.score = float(soup.find(class_='score-label score-8').get_text())
-            print('found score ok')
-            # !! rank: issue with Demon Slayer movie story, index out of range
-            self.rank = int(soup.find('span', {'class':'numbers ranked'}).find('strong').get_text().split('#')[1])
-            print('found rank ok')
+            t_div = soup.find(class_='spaceit_pad')
+            self.title = t_div.get_text().split(t_div.find('span', {'class':'dark_text'}).get_text())[1].replace('\n', '')
+            print(self.title)
+
+
+            self.score = float(soup.find('div', {'class':'fl-l score'}).get_text())
+            print('score ', self.score)
+
+            r_div = soup.find('span', {'class':'numbers ranked'}).find('strong').get_text()
+            if r_div != "N/A":
+                self.rank = int(r_div.split('#')[1])
+            print('rank: ', self.rank)
+
             self.episodes = int(soup.find_all(class_='spaceit')[3].get_text().split('/')[1])
-            print('found episodes ok\n')
+            print('episodes: ', self.episodes, '\n')
         except Exception as e:
             print('Something wrong with story..\t', url)
             print('Exception: ', e,'\n')
@@ -82,36 +85,41 @@ class Profile():
                     story = Story(str(link['href']))
                     stories.append(story)
         # If not, return an empty list
-        except:
-            return []
+        except Exception as e:
+            print(e + ': user does not have a favourite '+category +' list!')
+
         return stories
 
 
     # Find all anime from user list
     def all_stories(self, category):
-        url = 'https://myanimelist.net/' + category +'list/'+ self.username
+        url = 'https://myanimelist.net/'+category+'list/'+self.username
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
         stories = []
+        # This try is for avoiding random 403's
+        try:
+            # Get rid of the other table contents, isolate data
+            contents = soup.find('table', {'class':'list-table'})
+            for t in contents('tbody'):
+                t.decompose()
+            data = contents['data-items']
+            # Sort out and make stories with the urls
 
-        # Get rid of the other table contents, isolate data
-        contents = soup.find('table', {'class':'list-table'})
-        for t in contents('tbody'):
-            t.decompose()
-        data = contents['data-items']
-        # Sort out and make stories with the urls
+            links = data.split(category + '_url\":\"')
+            scores = data.split('\"score\":')
+            assert len(links) == len(scores)
 
-        links = data.split(category + '_url\":\"')
-        scores = data.split('\"score\":')
-        assert len(links) == len(scores)
+            for i in range(1, len(links)):
+                # Split on last " and remove redundant backslashes
+                link = links[i].split('\"')[0].replace('\\', '')
+                score = int(scores[i].split('\"')[0].replace(',', ''))
+                story = Story('https://myanimelist.net' + link)
+                story.set_my_rating(score)
+                stories.append(story)
 
-        for i in range(1, len(links)):
-            # Split on last " and remove redundant backslashes
-            link = links[i].split('\"')[0].replace('\\', '')
-            score = int(scores[i].split('\"')[0].replace(',', ''))
-            story = Story('https://myanimelist.net' + link)
-            story.set_my_rating(score)
-            stories.append(story)
+        except TypeError as e:
+            print(e + ': myanimelist.net is down again!')
 
         return stories
 
