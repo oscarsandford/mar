@@ -10,21 +10,19 @@ class Story():
         self.title, self.score, self.rank, self.episodes, self.my_rating = 'error', 0.0, 0, 0, 0
         # Any errors in gathering story data will make story invalid
         try:
+            # TODO: find a better way to get the title from h1-title
             t_div = soup.find(class_='spaceit_pad')
             self.title = t_div.get_text().split(t_div.find('span', {'class':'dark_text'}).get_text())[1].replace('\n', '')
-            print(self.title)
-
+            print("Appending . . . ", self.title)
 
             self.score = float(soup.find('div', {'class':'fl-l score'}).get_text())
-            print('score ', self.score)
 
             r_div = soup.find('span', {'class':'numbers ranked'}).find('strong').get_text()
             if r_div != "N/A":
                 self.rank = int(r_div.split('#')[1])
-            print('rank: ', self.rank)
 
             self.episodes = int(soup.find_all(class_='spaceit')[3].get_text().split('/')[1])
-            print('episodes: ', self.episodes, '\n')
+
         except Exception as e:
             print('Something wrong with story..\t', url)
             print('Exception: ', e,'\n')
@@ -49,7 +47,7 @@ class Story():
         return self.my_rating
 
     def __str__(self):
-        s = '\nTitle: ' + self.title
+        s = '\nTitle:' + self.title
         s += '\nScore: ' + str(format(self.score, '.2f'))
         s += '\nRank: #' + str(self.rank)
         s += '\nEpisodes: ' + str(self.episodes)
@@ -61,9 +59,6 @@ class Profile():
     # Given MAL username, retrieve user profile page data
     def __init__(self, username):
         self.username = username
-        # Set favourite anime and manga
-        #self.favourite_anime = self.favourite_stories('anime')
-        #self.favourite_manga = self.favourite_stories('manga')
 
         # Set lists (watching, completed, ptw, etc.)
         self.anime_list = self.all_stories('anime')
@@ -129,8 +124,18 @@ class Profile():
     def get_fave_manga(self):
         return self.favourite_manga
 
+    # TODO: add an arg to change for different display options
     def get_anime_list(self):
         s = ''
         for anime in self.anime_list:
-            s += '(' + str(anime.get_my_rating()) + ')\t' +anime.get_title() + '\n'
+            s += str(anime) + '\n(User Score: ' + str(anime.get_my_rating()) + ')\n'
         return s
+
+    def export_anime_list(self):
+        filename = 'mal_' + self.username + '.txt'
+        txt_file = open(filename, 'w', errors='replace')
+        s = ''
+        for anime in self.anime_list:
+            s = str(anime) + '\n(User Score: ' + str(anime.get_my_rating()) + ')\n'
+            txt_file.write(s)
+        txt_file.close()
