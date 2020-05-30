@@ -15,10 +15,12 @@ class Story():
             self.title = t_div.get_text().split(t_div.find('span', {'class':'dark_text'}).get_text())[1].replace('\n', '')
             print("Appending . . . ", self.title)
 
-            self.score = float(soup.find('div', {'class':'fl-l score'}).get_text())
+            s_div = soup.find('div', {'class':'fl-l score'}).get_text()
+            if s_div != 'N/A':
+                self.score = float(s_div)
 
             r_div = soup.find('span', {'class':'numbers ranked'}).find('strong').get_text()
-            if r_div != "N/A":
+            if r_div != 'N/A':
                 self.rank = int(r_div.split('#')[1])
 
             self.episodes = int(soup.find_all(class_='spaceit')[3].get_text().split('/')[1])
@@ -113,7 +115,7 @@ class Profile():
                 story.set_my_rating(score)
                 stories.append(story)
 
-        except TypeError as e:
+        except Exception as e:
             print(e + ': myanimelist.net is down again!')
 
         return stories

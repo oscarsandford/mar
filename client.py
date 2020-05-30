@@ -8,7 +8,7 @@ user3 = 'lanzer001'
 user4 = 'frosty114'
 
 def main():
-    user_profile = Profile(user4)
+    user_profile = Profile(user1)
 
     li = user_profile.get_anime_list()
     print(li)
