@@ -58,13 +58,14 @@ class Story():
 		return s
 
 
+
 class Profile():
 
 	# Given MAL username, retrieve user profile page data
 	def __init__(self, username):
 		self.username = username
-		self.anime_list = self.all_stories("anime")
-		self.manga_list = self.all_stories("manga")
+		self.anime_list = []
+		self.manga_list = []
 
 
 	def all_stories(self, category):
@@ -90,6 +91,13 @@ class Profile():
 			stories.append(story)
 
 		return stories
+
+
+	def set_list(self, category):
+		if category == "manga":
+			self.manga_list = self.all_stories("manga")
+		else:
+			self.anime_list = self.all_stories("anime")
 
 
 	def get_list(self, category):
