@@ -54,7 +54,7 @@ class Story():
 	def __str__(self):
 		s = "\nTitle:" + self.title
 		s += "\nLink: " + str(self.link)
-		s += "\nUser Rating: " + str(self.my_rating) + "\n"
+		s += "\nUser Rating: " + str(self.my_rating)
 		return s
 
 
@@ -68,7 +68,8 @@ class Profile():
 		self.manga_list = []
 
 
-	def set_all_stories(self, category):
+	# Return list of Story objects with the user's scores >= threshold
+	def set_stories(self, category, threshold):
 		url = "https://myanimelist.net/"+category+"list/"+self.username
 		response = requests.get(url)
 		soup = BeautifulSoup(response.text, "html.parser")
@@ -84,22 +85,25 @@ class Profile():
 		assert len(links) == len(scores)
 
 		for i in range(1, len(links)):
-			link = links[i].split("\"")[0].replace("\\", "")
 			score = int(scores[i].split("\"")[0].replace(",", ""))
-			story = Story("https://myanimelist.net" + link)
-			story.set_my_rating(score)
-			stories.append(story)
+			if score >= threshold:
+				link = links[i].split("\"")[0].replace("\\", "")
+				story = Story("https://myanimelist.net" + link)
+				story.set_my_rating(score)
+				stories.append(story)
 
 		return stories
 
 
-	def set_list(self, category):
+	# Set all stories of a category, of any score
+	def set_all_stories(self, category):
 		if category == "manga":
-			self.manga_list = self.set_all_stories("manga")
+			self.manga_list = self.set_stories("manga", 0)
 		else:
-			self.anime_list = self.set_all_stories("anime")
+			self.anime_list = self.set_stories("anime", 0)
 
 
+	# Returns a given list, defaulting to anime
 	def get_list(self, category):
 		if category == "manga":
 			return self.manga_list
@@ -107,6 +111,7 @@ class Profile():
 			return self.anime_list
 
 
+	# Export stories to a .txt file
 	def export_list(self, category):
 		filename = "mal_" + category + "_" + self.username + ".txt"
 		storage = open(filename, "w", errors="replace")
@@ -114,18 +119,3 @@ class Profile():
 		for story in self.get_list(category):
 			storage.write(str(story))
 		storage.close()
-
-
-	def import_list_links(self, category):
-		filename = "mal_" + category + "_" + self.username + ".txt"
-		links = []
-		try:
-			storage = open(filename, "r")
-			for line in storage:
-				if "https" in line:
-					links.append(line.split("Link: ")[1].replace("\n",""))
-			storage.close()
-		except Exception as e:
-			print("UwU somethwing fucky wucky happened:\n", e)
-			exit(0)
-		return links
