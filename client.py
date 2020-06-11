@@ -9,7 +9,7 @@ user3 = "lanzer001"
 user4 = "frosty114"
 
 def main():
-	profile = make_user(user4)
+	profile = Profile(user4)
 	make_recommendations(profile)
 
 def make_user(u):

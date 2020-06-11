@@ -7,4 +7,4 @@ class Recommendations():
 
 	def recommend(self, category):
 		# TODO: recommend stories based on the profile
-		pass
+		current_stories = self.profile.import_list(category)

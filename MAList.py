@@ -7,6 +7,7 @@ class Story():
 	def __init__(self, url):
 		response = requests.get(url)
 		soup = BeautifulSoup(response.text, "html.parser")
+		self.link = url
 		self.title, self.score, self.rank, self.episodes, self.my_rating = " error", 0.0, 0, 0, 0
 		try:
 			# TODO: find a better way to get the title from h1-title
@@ -29,6 +30,9 @@ class Story():
 			print("Exception: ", e,"\n")
 
 
+	def get_link(self):
+		return self.link
+
 	def get_title(self):
 		return self.title
 
@@ -47,14 +51,10 @@ class Story():
 	def get_my_rating(self):
 		return self.my_rating
 
-	def format_story(self):
-		return "\nTitle:" + self.title + "\nUser Rating: " + str(self.my_rating) + "\n"
-
 	def __str__(self):
 		s = "\nTitle:" + self.title
-		s += "\nScore: " + str(format(self.score, ".2f"))
-		s += "\nRank: #" + str(self.rank)
-		s += "\nEpisodes: " + str(self.episodes)
+		s += "\nLink: " + str(self.link)
+		s += "\nUser Rating: " + str(self.my_rating) + "\n"
 		return s
 
 
@@ -68,7 +68,7 @@ class Profile():
 		self.manga_list = []
 
 
-	def all_stories(self, category):
+	def set_all_stories(self, category):
 		url = "https://myanimelist.net/"+category+"list/"+self.username
 		response = requests.get(url)
 		soup = BeautifulSoup(response.text, "html.parser")
@@ -95,10 +95,9 @@ class Profile():
 
 	def set_list(self, category):
 		if category == "manga":
-			self.manga_list = self.all_stories("manga")
+			self.manga_list = self.set_all_stories("manga")
 		else:
-			self.anime_list = self.all_stories("anime")
-
+			self.anime_list = self.set_all_stories("anime")
 
 	def get_list(self, category):
 		if category == "manga":
@@ -109,7 +108,7 @@ class Profile():
 
 	def build_list(list):
 		for story in list:
-			s += story.format_story()
+			s += str(story)
 		return s
 
 
@@ -122,8 +121,23 @@ class Profile():
 
 	def export_list(self, category):
 		filename = "mal_" + category + "_" + self.username + ".txt"
-		txt_file = open(filename, "w", errors="replace")
-		txt_file.write(self.username + "\'s " + category + " list:\n")
+		storage = open(filename, "w", errors="replace")
+		storage.write(self.username + "\'s " + category + " list:\n")
 		for story in self.get_list(category):
-			txt_file.write(story.format_story())
-		txt_file.close()
+			storage.write(str(story))
+		storage.close()
+
+
+	def import_list(self, category):
+		filename = "mal_" + category + "_" + self.username + ".txt"
+		li = []
+		try:
+			storage = open(filename, "r")
+			for line in storage:
+				if "https" in line:
+					li.append(line.split("Link: ")[1].replace("\n",""))
+			storage.close()
+		except Exception as e:
+			print("UwU somethwing fucky wucky happened:\n", e)
+			exit(0)
+		return li
