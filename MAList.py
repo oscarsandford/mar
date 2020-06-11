@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 class Story():
 
-	# Given URL, retrieve story page soup
+	# Given URL, retrieve story info
 	def __init__(self, url):
 		response = requests.get(url)
 		soup = BeautifulSoup(response.text, "html.parser")
@@ -61,7 +61,7 @@ class Story():
 
 class Profile():
 
-	# Given MAL username, retrieve user profile page data
+	# Given MAL username, retrieve, import/export their story lists
 	def __init__(self, username):
 		self.username = username
 		self.anime_list = []
@@ -99,24 +99,12 @@ class Profile():
 		else:
 			self.anime_list = self.set_all_stories("anime")
 
+
 	def get_list(self, category):
 		if category == "manga":
 			return self.manga_list
 		else:
 			return self.anime_list
-
-
-	def build_list(list):
-		for story in list:
-			s += str(story)
-		return s
-
-
-	def get_list_string(self, category):
-		if category == "manga":
-			return build_list(self.manga_list)
-		else:
-			return build_list(self.anime_list)
 
 
 	def export_list(self, category):
@@ -128,16 +116,16 @@ class Profile():
 		storage.close()
 
 
-	def import_list(self, category):
+	def import_list_links(self, category):
 		filename = "mal_" + category + "_" + self.username + ".txt"
-		li = []
+		links = []
 		try:
 			storage = open(filename, "r")
 			for line in storage:
 				if "https" in line:
-					li.append(line.split("Link: ")[1].replace("\n",""))
+					links.append(line.split("Link: ")[1].replace("\n",""))
 			storage.close()
 		except Exception as e:
 			print("UwU somethwing fucky wucky happened:\n", e)
 			exit(0)
-		return li
+		return links
