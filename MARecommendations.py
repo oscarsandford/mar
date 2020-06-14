@@ -1,3 +1,5 @@
+from MAList import Story
+
 class Recommendations():
 
 	# Recommends stories base on profile's story lists
@@ -7,11 +9,26 @@ class Recommendations():
 		self.manga_recmd = []
 
 	def recommend(self, category, threshold):
-		good_ones = self.profile.set_stories(category, threshold)
+		good_links = self.profile.import_good_links(category, threshold)
+		for link in good_links:
+			good_story = Story(link)
+			self.get_recommendations(category).append(good_story)
 
-		for story in good_ones:
-			print(str(story))
 
-		# TODO: Great, we got a bunch of stories with "good" ratings.
-		# Now we need to fish the recommendation section from the story
-		# page and add the first few stories to the list of recommendations.
+	# Returns a given set of recommendations, defaulting to anime
+	def get_recommendations(self, category):
+		if category == "manga":
+			return self.manga_recmd
+		else:
+			return self.anime_recmd
+
+
+	# Export recommendations to plaintext file
+	def export_recommendations(self, category):
+		filename = "rec_" + category + "_" + self.profile.username + ".txt"
+		storage = open(filename, "w", errors="replace")
+		storage.write(self.profile.username + "\'s " + category + " recommendations:\n")
+
+		for story in self.get_recommendations(category):
+			storage.write(str(story))
+		storage.close()

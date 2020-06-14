@@ -6,11 +6,11 @@ class Story():
 	# Given URL, retrieve story info
 	def __init__(self, url):
 		response = requests.get(url)
-		soup = BeautifulSoup(response.text, "html.parser")
+		self.soup = BeautifulSoup(response.text, "html.parser")
 		self.link = url
 		self.title, self.score, self.rank, self.episodes, self.my_rating = " error", 0.0, 0, 0, 0
 		try:
-			t_div = soup.find("span", {"class":"h1-title"})
+			t_div = self.soup.find("span", {"class":"h1-title"})
 			try:
 				self.title = t_div.find("span", {"class":"title-english"}).get_text()
 			except Exception as e:
@@ -18,19 +18,27 @@ class Story():
 
 			print("Appending . . . ", self.title)
 
-			s_div = soup.find("div", {"class":"fl-l score"}).get_text()
+			s_div = self.soup.find("div", {"class":"fl-l score"}).get_text()
 			if s_div != "N/A":
 				self.score = float(s_div)
 
-			r_div = soup.find("span", {"class":"numbers ranked"}).find("strong").get_text()
+			r_div = self.soup.find("span", {"class":"numbers ranked"}).find("strong").get_text()
 			if r_div != "N/A":
 				self.rank = int(r_div.split("#")[1])
 
-			self.episodes = int(soup.find_all(class_="spaceit")[3].get_text().split("/")[1])
+			self.episodes = int(self.soup.find_all(class_="spaceit")[3].get_text().split("/")[1])
 
 		except Exception as e:
 			print("Something wrong with story..\t", url)
 			print("Exception: ", e,"\n")
+
+
+	def get_recommendation_links(self):
+		rec_div = self.soup.find("ul", {"class":"anime-slide js-anime-slide"})
+		recs = rec_div.find_all("li", {"class":"btn-anime"})
+		# Top 3 recommendations
+		for i in range(2):
+			recs[i].find("a")
 
 
 	def get_link(self):
@@ -114,7 +122,7 @@ class Profile():
 			return self.anime_list
 
 
-	# Export stories to a .txt file
+	# Export stories to plaintext file
 	def export_list(self, category):
 		filename = "mal_" + category + "_" + self.username + ".txt"
 		storage = open(filename, "w", errors="replace")
@@ -122,3 +130,23 @@ class Profile():
 		for story in self.get_list(category):
 			storage.write(str(story))
 		storage.close()
+
+
+	# Import list of story links with score >= threshold from existing user's storage file
+	def import_good_links(self, category, threshold):
+		filename = "mal_" + category + "_" + self.username + ".txt"
+		links = []
+		try:
+			with open(filename, "r") as storage:
+				lines = storage.readlines()
+				for i in range(len(lines)):
+					if "Link" in lines[i] and "User Rating" in lines[i+1]:
+						score = int(lines[i+1].split("User Rating: ")[1])
+						if score >= threshold:
+							links.append(lines[i].split("Link: ")[1].strip())
+			storage.close()
+		except Exception as e:
+			print("Oh noes! This user's "+category+" list does not exist.\nExiting..")
+			exit(0)
+
+		return links
