@@ -33,12 +33,19 @@ class Story():
 			print("Exception: ", e,"\n")
 
 
+	# Returns list of recommendations from story page
 	def get_recommendation_links(self):
-		rec_div = self.soup.find("ul", {"class":"anime-slide js-anime-slide"})
-		recs = rec_div.find_all("li", {"class":"btn-anime"})
-		# Top 3 recommendations
-		for i in range(2):
-			recs[i].find("a")
+		links = []
+		response = requests.get(self.get_link() + "/userrecs")
+		r_soup = BeautifulSoup(response.text, "html.parser")
+		lst = r_soup.find("div", {"class":"js-scrollfix-bottom-rel"})
+		for r in lst.find_all("div", {"class":"picSurround"}):
+			lk = r.find("a").get("href")
+			links.append(lk)
+			# TODO: adjust min recommendations per story
+			if len(links) > 2:
+				break
+		return links
 
 
 	def get_link(self):
@@ -63,9 +70,9 @@ class Story():
 		return self.my_rating
 
 	def __str__(self):
-		s = "\nTitle:" + self.title
+		s = "\nTitle: " + self.title
 		s += "\nLink: " + str(self.link)
-		s += "\nUser Rating: " + str(self.my_rating)
+		s += "\nUser Rating: " + str(self.my_rating) + "\n"
 		return s
 
 
@@ -81,6 +88,7 @@ class Profile():
 
 	# Return list of Story objects with the user's scores >= threshold
 	def set_stories(self, category, threshold):
+		print("\n\t<> Setting "+category+" stories! <>\n")
 		url = "https://myanimelist.net/"+category+"list/"+self.username
 		response = requests.get(url)
 		soup = BeautifulSoup(response.text, "html.parser")
@@ -133,7 +141,7 @@ class Profile():
 
 
 	# Import list of story links with score >= threshold from existing user's storage file
-	def import_good_links(self, category, threshold):
+	def import_links(self, category, threshold):
 		filename = "mal_" + category + "_" + self.username + ".txt"
 		links = []
 		try:

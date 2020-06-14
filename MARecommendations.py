@@ -8,11 +8,24 @@ class Recommendations():
 		self.anime_recmd = []
 		self.manga_recmd = []
 
-	def recommend(self, category, threshold):
-		good_links = self.profile.import_good_links(category, threshold)
+
+	# Makes list of story recommendations that user has not viewed
+	# with score >= min_score based on their stories with score >= threshold
+	def recommend(self, category, threshold, min_score):
+		print("\n\t<> Creating "+category+" recommendations! <>\n")
+		good_links = self.profile.import_links(category, threshold)
+		all_links = self.profile.import_links(category, 0)
+
 		for link in good_links:
 			good_story = Story(link)
-			self.get_recommendations(category).append(good_story)
+			r_links = good_story.get_recommendation_links()
+
+			# TODO: fix duplication of stories added
+			for r_link in r_links:
+				if r_link not in all_links:
+					r_story = Story(r_link)
+					if r_story.get_score() >= min_score:
+						self.get_recommendations(category).append(r_story)
 
 
 	# Returns a given set of recommendations, defaulting to anime
