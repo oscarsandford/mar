@@ -8,17 +8,18 @@ user2 = "winstonmanatee"
 user3 = "lanzer001"
 user4 = "frosty114"
 
-min_score = 10
+min_score = 8
 
 
 def main():
-	profile = Profile(user1)
-	make_recommendations(profile)
+	profile = Profile(user4)
+	#make_recommendations(profile)
+	make_user(profile)
 
 # Defines a user's complete anime list and exports it
 def make_user(p):
 	p.set_all_stories("anime")
-	p.export_list("anime")
+	#p.export_list("anime")
 
 # Defines a user's recommendations
 def make_recommendations(p):

@@ -10,9 +10,12 @@ class Story():
 		self.link = url
 		self.title, self.score, self.rank, self.episodes, self.my_rating = " error", 0.0, 0, 0, 0
 		try:
-			# TODO: find a better way to get the title from h1-title
-			t_div = soup.find(class_="spaceit_pad")
-			self.title = t_div.get_text().split(t_div.find("span", {"class":"dark_text"}).get_text())[1].replace("\n", "")
+			t_div = soup.find("span", {"class":"h1-title"})
+			try:
+				self.title = t_div.find("span", {"class":"title-english"}).get_text()
+			except Exception as e:
+				self.title = t_div.find("span", {"itemprop":"name"}).get_text()
+
 			print("Appending . . . ", self.title)
 
 			s_div = soup.find("div", {"class":"fl-l score"}).get_text()
