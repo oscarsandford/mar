@@ -3,18 +3,21 @@
 from MAList import Story, Profile
 from MARecommendations import Recommendations
 
-user1 = "amykyst"
-user2 = "winstonmanatee"
-user3 = "lanzer001"
-user4 = "frosty114"
+users = [
+	"amykyst",
+	"winstonmanatee",
+	"lanzer001",
+	"frosty114",
+	"smokezone"
+]
 
 min_consider = 10
 min_score = 8
 
 
 def main():
-	profile = Profile(user4)
-	#make_user(profile)
+	profile = Profile(users[0])
+	make_user(profile)
 	make_recommendations(profile)
 
 # Defines a user's complete anime list and exports it
