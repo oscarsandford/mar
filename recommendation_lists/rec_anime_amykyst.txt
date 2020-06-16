@@ -1,27 +1,15 @@
 amykyst's anime recommendations:
 
-Title: Nodame Cantabile
-Link: https://myanimelist.net/anime/1698/Nodame_Cantabile
+Title: Black Lagoon
+Link: https://myanimelist.net/anime/889/Black_Lagoon
 User Rating: 0
 
-Title: March comes in like a lion
-Link: https://myanimelist.net/anime/31646/3-gatsu_no_Lion
+Title: Berserk
+Link: https://myanimelist.net/anime/33/Kenpuu_Denki_Berserk
 User Rating: 0
 
-Title: Clannad ~After Story~
-Link: https://myanimelist.net/anime/4181/Clannad__After_Story
-User Rating: 0
-
-Title: anohana: The Flower We Saw That Day
-Link: https://myanimelist.net/anime/9989/Ano_Hi_Mita_Hana_no_Namae_wo_Bokutachi_wa_Mada_Shiranai
-User Rating: 0
-
-Title: Kids on the Slope
-Link: https://myanimelist.net/anime/12531/Sakamichi_no_Apollon
-User Rating: 0
-
-Title: I want to eat your pancreas
-Link: https://myanimelist.net/anime/36098/Kimi_no_Suizou_wo_Tabetai
+Title: Redline
+Link: https://myanimelist.net/anime/6675/Redline
 User Rating: 0
 
 Title: Fighting Spirit
@@ -32,34 +20,22 @@ Title: Yowamushi Pedal
 Link: https://myanimelist.net/anime/18179/Yowamushi_Pedal
 User Rating: 0
 
-Title: Kuroko's Basketball
-Link: https://myanimelist.net/anime/11771/Kuroko_no_Basket
+Title: Hunter x Hunter
+Link: https://myanimelist.net/anime/11061/Hunter_x_Hunter_2011
 User Rating: 0
 
-Title: Redline
-Link: https://myanimelist.net/anime/6675/Redline
+Title: Attack on Titan
+Link: https://myanimelist.net/anime/16498/Shingeki_no_Kyojin
 User Rating: 0
 
-Title: Hikaru no Go
-Link: https://myanimelist.net/anime/135/Hikaru_no_Go
+Title: D.Gray-man
+Link: https://myanimelist.net/anime/1482/DGray-man
 User Rating: 0
 
-Title: Honey and Clover
-Link: https://myanimelist.net/anime/16/Hachimitsu_to_Clover
+Title: Baccano!
+Link: https://myanimelist.net/anime/2251/Baccano
 User Rating: 0
 
-Title: Bakuman.
-Link: https://myanimelist.net/anime/7674/Bakuman
-User Rating: 0
-
-Title: Hyouka
-Link: https://myanimelist.net/anime/12189/Hyouka
-User Rating: 0
-
-Title: Lovely Complex
-Link: https://myanimelist.net/anime/2034/Lovely?Complex
-User Rating: 0
-
-Title: Clannad
-Link: https://myanimelist.net/anime/2167/Clannad
+Title: Mobile Suit Gundam 00
+Link: https://myanimelist.net/anime/2581/Mobile_Suit_Gundam_00
 User Rating: 0

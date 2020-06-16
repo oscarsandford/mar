@@ -33,7 +33,7 @@ class Story():
 			print("Exception: ", e,"\n")
 
 
-	# Returns list of recommendations from story page
+	# Returns list of recommendations from story page, up to length given by max
 	def get_recommendation_links(self, max):
 		links = []
 		response = requests.get(self.get_link() + "/userrecs")

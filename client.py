@@ -4,17 +4,9 @@ from MAList import Story, Profile
 from MARecommendations import Recommendations
 import sys
 
-users = [
-	"amykyst",
-	"winstonmanatee",
-	"lanzer001",
-	"frosty114",
-	"smokezone"
-]
-
-min_consider = 10
+min_thres = 10
 min_score = 8
-max_recommendations = 5
+max_recom = 5
 
 
 def main():
@@ -37,7 +29,7 @@ def make_user(p):
 # Defines a user's recommendations
 def make_recommendations(p):
 	r = Recommendations(p)
-	r.recommend("anime", min_consider, min_score)
+	r.recommend("anime", min_thres, min_score, max_recom)
 	r.export_recommendations("anime")
 
 if __name__ == '__main__':

@@ -12,21 +12,25 @@ class Recommendations():
 
 	# Makes list of story recommendations that user has not viewed
 	# with score >= min_score based on their stories with score >= threshold
-	def recommend(self, category, threshold, min_score, max_recommend):
+	def recommend(self, category, threshold, min_score, max_rec):
 		print("\n\t<> Creating "+category+" recommendations! <>\n")
-		good_links = self.profile.import_links(category, threshold)
-		shuffle(good_links)
-		all_links = self.profile.import_links(category, 0)
 
-		for link in good_links[:5]:
-			good_story = Story(link)
-			r_links = good_story.get_recommendation_links(10)
+		best_user_links = self.profile.import_links(category, threshold)
+		shuffle(best_user_links)
+		all_user_links = self.profile.import_links(category, 0)
+		recommended_links = []
 
-			for r_link in r_links:
-				if r_link not in all_links:
-					r_story = Story(r_link)
-					if r_story.get_score() >= min_score:
-						self.get_recommendations(category).append(r_story)
+		for link in best_user_links[:max_rec]:
+			story = Story(link)
+			recommended_links += story.get_recommendation_links(max_rec)
+
+		list(set(recommended_links))
+
+		for link in recommended_links:
+			if link not in all_user_links:
+				story = Story(link)
+				if story.get_score() >= min_score:
+					self.get_recommendations(category).append(story)
 
 
 	# Returns a given set of recommendations, defaulting to anime
