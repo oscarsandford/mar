@@ -15,22 +15,28 @@ def main():
 
 # Do things with given profile based on args
 def parse_args(p):
+	category = "anime"
 	for i in range(len(sys.argv)):
-		if sys.argv[i] == "-m":
-			make_user(p)
+		# TODO: revise this if chain
+		if sys.argv[i] == "!a":
+			category = "anime"
+		elif sys.argv[i] == "!m":
+			category = "manga"
+		elif sys.argv[i] == "-c":
+				make_user(p, category)
 		elif sys.argv[i] == "-r":
-			make_recommendations(p)
+				make_recommendations(p, category)
 
 # Defines a user's complete anime list and exports it
-def make_user(p):
-	p.set_all_stories("anime")
-	p.export_list("anime")
+def make_user(p, c):
+	p.set_all_stories(c)
+	p.export_list(c)
 
 # Defines a user's recommendations
-def make_recommendations(p):
+def make_recommendations(p, c):
 	r = Recommendations(p)
-	r.recommend("anime", min_thres, min_score, max_recom)
-	r.export_recommendations("anime")
+	r.recommend(c, min_thres, min_score, max_recom)
+	r.export_recommendations(c)
 
 if __name__ == '__main__':
     main()
