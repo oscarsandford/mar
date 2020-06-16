@@ -34,7 +34,7 @@ class Story():
 
 
 	# Returns list of recommendations from story page
-	def get_recommendation_links(self):
+	def get_recommendation_links(self, max):
 		links = []
 		response = requests.get(self.get_link() + "/userrecs")
 		r_soup = BeautifulSoup(response.text, "html.parser")
@@ -42,8 +42,7 @@ class Story():
 		for r in lst.find_all("div", {"class":"picSurround"}):
 			lk = r.find("a").get("href")
 			links.append(lk)
-			# TODO: adjust min recommendations per story
-			if len(links) > 2:
+			if len(links) >= max:
 				break
 		return links
 
@@ -133,7 +132,7 @@ class Profile():
 	# Export stories to plaintext file
 	def export_list(self, category):
 		filename = "mal_" + category + "_" + self.username + ".txt"
-		storage = open(filename, "w", errors="replace")
+		storage = open("./story_lists/" + filename, "w", errors="replace")
 		storage.write(self.username + "\'s " + category + " list:\n")
 		for story in self.get_list(category):
 			storage.write(str(story))
@@ -145,7 +144,7 @@ class Profile():
 		filename = "mal_" + category + "_" + self.username + ".txt"
 		links = []
 		try:
-			with open(filename, "r") as storage:
+			with open("./story_lists/" + filename, "r") as storage:
 				lines = storage.readlines()
 				for i in range(len(lines)):
 					if "Link" in lines[i] and "User Rating" in lines[i+1]:

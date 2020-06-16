@@ -1,4 +1,5 @@
 from MAList import Story
+from random import shuffle
 
 class Recommendations():
 
@@ -11,16 +12,16 @@ class Recommendations():
 
 	# Makes list of story recommendations that user has not viewed
 	# with score >= min_score based on their stories with score >= threshold
-	def recommend(self, category, threshold, min_score):
+	def recommend(self, category, threshold, min_score, max_recommend):
 		print("\n\t<> Creating "+category+" recommendations! <>\n")
 		good_links = self.profile.import_links(category, threshold)
+		shuffle(good_links)
 		all_links = self.profile.import_links(category, 0)
 
-		for link in good_links:
+		for link in good_links[:5]:
 			good_story = Story(link)
-			r_links = good_story.get_recommendation_links()
+			r_links = good_story.get_recommendation_links(10)
 
-			# TODO: fix duplication of stories added
 			for r_link in r_links:
 				if r_link not in all_links:
 					r_story = Story(r_link)
@@ -39,7 +40,7 @@ class Recommendations():
 	# Export recommendations to plaintext file
 	def export_recommendations(self, category):
 		filename = "rec_" + category + "_" + self.profile.username + ".txt"
-		storage = open(filename, "w", errors="replace")
+		storage = open("./recommendation_lists/" + filename, "w", errors="replace")
 		storage.write(self.profile.username + "\'s " + category + " recommendations:\n")
 
 		for story in self.get_recommendations(category):

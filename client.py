@@ -2,6 +2,7 @@
 
 from MAList import Story, Profile
 from MARecommendations import Recommendations
+import sys
 
 users = [
 	"amykyst",
@@ -13,12 +14,20 @@ users = [
 
 min_consider = 10
 min_score = 8
+max_recommendations = 5
 
 
 def main():
-	profile = Profile(users[0])
-	make_user(profile)
-	make_recommendations(profile)
+	user = sys.argv[1]
+	parse_args(Profile(user))
+
+# Do things with given profile based on args
+def parse_args(p):
+	for i in range(len(sys.argv)):
+		if sys.argv[i] == "-m":
+			make_user(p)
+		elif sys.argv[i] == "-r":
+			make_recommendations(p)
 
 # Defines a user's complete anime list and exports it
 def make_user(p):
