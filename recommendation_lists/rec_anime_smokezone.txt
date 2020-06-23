@@ -1,13 +1,5 @@
 smokezone's anime recommendations:
 
-Title: A Lull in the Sea
-Link: https://myanimelist.net/anime/16067/Nagi_no_Asu_kara
-User Rating: 0
-
-Title: Great Teacher Onizuka
-Link: https://myanimelist.net/anime/245/Great_Teacher_Onizuka
-User Rating: 0
-
 Title: Hunter x Hunter
 Link: https://myanimelist.net/anime/11061/Hunter_x_Hunter_2011
 User Rating: 0
@@ -16,62 +8,6 @@ Title: D.Gray-man
 Link: https://myanimelist.net/anime/1482/DGray-man
 User Rating: 0
 
-Title: Hunter x Hunter
-Link: https://myanimelist.net/anime/11061/Hunter_x_Hunter_2011
-User Rating: 0
-
-Title: Kaiji: Ultimate Survivor
-Link: https://myanimelist.net/anime/3002/Gyakkyou_Burai_Kaiji__Ultimate_Survivor
-User Rating: 0
-
-Title: Fist of the North Star
-Link: https://myanimelist.net/anime/967/Hokuto_no_Ken
-User Rating: 0
-
-Title: Hunter x Hunter
-Link: https://myanimelist.net/anime/11061/Hunter_x_Hunter_2011
-User Rating: 0
-
-Title: Fist of the North Star
-Link: https://myanimelist.net/anime/967/Hokuto_no_Ken
-User Rating: 0
-
-Title: Grave of the Fireflies
-Link: https://myanimelist.net/anime/578/Hotaru_no_Haka
-User Rating: 0
-
-Title: The Wind Rises
-Link: https://myanimelist.net/anime/16662/Kaze_Tachinu
-User Rating: 0
-
-Title: The Promised Neverland
-Link: https://myanimelist.net/anime/37779/Yakusoku_no_Neverland
-User Rating: 0
-
-Title: Girls' Last Tour
-Link: https://myanimelist.net/anime/35838/Shoujo_Shuumatsu_Ryokou
-User Rating: 0
-
-Title: Hunter x Hunter
-Link: https://myanimelist.net/anime/11061/Hunter_x_Hunter_2011
-User Rating: 0
-
-Title: Nodame Cantabile
-Link: https://myanimelist.net/anime/1698/Nodame_Cantabile
-User Rating: 0
-
-Title: March comes in like a lion
-Link: https://myanimelist.net/anime/31646/3-gatsu_no_Lion
-User Rating: 0
-
-Title: Eureka Seven
-Link: https://myanimelist.net/anime/237/Koukyoushihen_Eureka_Seven
-User Rating: 0
-
-Title: From the New World
-Link: https://myanimelist.net/anime/13125/Shinsekai_yori
-User Rating: 0
-
-Title: The Ancient Magus' Bride
-Link: https://myanimelist.net/anime/35062/Mahoutsukai_no_Yome
+Title: Baccano!
+Link: https://myanimelist.net/anime/2251/Baccano
 User Rating: 0

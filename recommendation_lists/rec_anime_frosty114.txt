@@ -1,7 +1,19 @@
 frosty114's anime recommendations:
 
-Title: Steins;Gate
-Link: https://myanimelist.net/anime/9253/Steins_Gate
+Title: No Game, No Life
+Link: https://myanimelist.net/anime/19815/No_Game_No_Life
+User Rating: 0
+
+Title: Mobile Suit Gundam 00
+Link: https://myanimelist.net/anime/2581/Mobile_Suit_Gundam_00
+User Rating: 0
+
+Title: Puella Magi Madoka Magica
+Link: https://myanimelist.net/anime/9756/Mahou_Shoujo_Madoka?Magica
+User Rating: 0
+
+Title: Psycho-Pass
+Link: https://myanimelist.net/anime/13601/Psycho-Pass
 User Rating: 0
 
 Title: Monster
@@ -12,12 +24,8 @@ Title: Terror in Resonance
 Link: https://myanimelist.net/anime/23283/Zankyou_no_Terror
 User Rating: 0
 
-Title: Puella Magi Madoka Magica
-Link: https://myanimelist.net/anime/9756/Mahou_Shoujo_Madoka?Magica
-User Rating: 0
-
-Title: Puella Magi Madoka Magica
-Link: https://myanimelist.net/anime/9756/Mahou_Shoujo_Madoka?Magica
+Title: Psycho-Pass
+Link: https://myanimelist.net/anime/13601/Psycho-Pass
 User Rating: 0
 
 Title: Hunter x Hunter
@@ -28,10 +36,14 @@ Title: D.Gray-man
 Link: https://myanimelist.net/anime/1482/DGray-man
 User Rating: 0
 
-Title: Yu Yu Hakusho: Ghost Files
-Link: https://myanimelist.net/anime/392/Yuu?Yuu?Hakusho
+Title: Baccano!
+Link: https://myanimelist.net/anime/2251/Baccano
 User Rating: 0
 
-Title: Hunter x Hunter
-Link: https://myanimelist.net/anime/11061/Hunter_x_Hunter_2011
+Title: Puella Magi Madoka Magica
+Link: https://myanimelist.net/anime/9756/Mahou_Shoujo_Madoka?Magica
+User Rating: 0
+
+Title: Psycho-Pass
+Link: https://myanimelist.net/anime/13601/Psycho-Pass
 User Rating: 0

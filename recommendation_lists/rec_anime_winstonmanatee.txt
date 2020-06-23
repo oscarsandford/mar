@@ -1,11 +1,27 @@
 winstonmanatee's anime recommendations:
 
-Title: D.Gray-man
-Link: https://myanimelist.net/anime/1482/DGray-man
+Title: The Disastrous Life of Saiki K.
+Link: https://myanimelist.net/anime/33255/Saiki_Kusuo_no_?-nan
 User Rating: 0
 
 Title: Gintama
 Link: https://myanimelist.net/anime/918/Gintama
+User Rating: 0
+
+Title: Gintama
+Link: https://myanimelist.net/anime/918/Gintama
+User Rating: 0
+
+Title: The Disastrous Life of Saiki K.
+Link: https://myanimelist.net/anime/33255/Saiki_Kusuo_no_?-nan
+User Rating: 0
+
+Title: Bunny Drop
+Link: https://myanimelist.net/anime/10162/Usagi_Drop
+User Rating: 0
+
+Title: Mobile Suit Gundam 00
+Link: https://myanimelist.net/anime/2581/Mobile_Suit_Gundam_00
 User Rating: 0
 
 Title: Your Name.
@@ -18,8 +34,4 @@ User Rating: 0
 
 Title: anohana: The Flower We Saw That Day
 Link: https://myanimelist.net/anime/9989/Ano_Hi_Mita_Hana_no_Namae_wo_Bokutachi_wa_Mada_Shiranai
-User Rating: 0
-
-Title: The Disastrous Life of Saiki K.
-Link: https://myanimelist.net/anime/33255/Saiki_Kusuo_no_?-nan
 User Rating: 0

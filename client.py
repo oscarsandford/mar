@@ -10,19 +10,19 @@ max_recom = 5
 
 
 def main():
-	user = sys.argv[1]
-	parse_args(Profile(user))
+	if len(sys.argv) > 1:
+		user = sys.argv[1]
+		parse_args(Profile(user))
+	else:
+		exit("[MAR: ARG error] - Provide input arguments.\nExiting..")
 
 # Do things with given profile based on args
 def parse_args(p):
 	category = "anime"
+	if sys.argv[2] == "!m":
+		category = "manga"
 	for i in range(len(sys.argv)):
-		# TODO: revise this if chain
-		if sys.argv[i] == "!a":
-			category = "anime"
-		elif sys.argv[i] == "!m":
-			category = "manga"
-		elif sys.argv[i] == "-c":
+		if sys.argv[i] == "-c":
 				make_user(p, category)
 		elif sys.argv[i] == "-r":
 				make_recommendations(p, category)

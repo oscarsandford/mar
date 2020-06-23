@@ -29,8 +29,7 @@ class Story():
 			self.episodes = int(self.soup.find_all(class_="spaceit")[3].get_text().split("/")[1])
 
 		except Exception as e:
-			print("Something wrong with story..\t", url)
-			print("Exception: ", e,"\n")
+			print("[MAR: STY] - Story page has irregularity. ("+url+")\nException:",e,"\n")
 
 
 	# Returns list of recommendations from story page, up to length given by max
@@ -93,22 +92,26 @@ class Profile():
 		soup = BeautifulSoup(response.text, "html.parser")
 		stories = []
 
-		contents = soup.find("table", {"class":"list-table"})
-		for t in contents("tbody"):
-			t.decompose()
-		data = contents["data-items"]
+		try:
+			contents = soup.find("table", {"class":"list-table"})
+			for t in contents("tbody"):
+				t.decompose()
+			data = contents["data-items"]
 
-		links = data.split(category + "_url\":\"")
-		scores = data.split("\"score\":")
-		assert len(links) == len(scores)
+			links = data.split(category + "_url\":\"")
+			scores = data.split("\"score\":")
+			assert len(links) == len(scores)
 
-		for i in range(1, len(links)):
-			score = int(scores[i].split("\"")[0].replace(",", ""))
-			if score >= threshold:
-				link = links[i].split("\"")[0].replace("\\", "")
-				story = Story("https://myanimelist.net" + link)
-				story.set_my_rating(score)
-				stories.append(story)
+			for i in range(1, len(links)):
+				score = int(scores[i].split("\"")[0].replace(",", ""))
+				if score >= threshold:
+					link = links[i].split("\"")[0].replace("\\", "")
+					story = Story("https://myanimelist.net" + link)
+					story.set_my_rating(score)
+					stories.append(story)
+		except Exception as e:
+			exit("[MAR: USR error] - User does not exist.\nExiting..")
+
 
 		return stories
 
@@ -153,7 +156,6 @@ class Profile():
 							links.append(lines[i].split("Link: ")[1].strip())
 			storage.close()
 		except Exception as e:
-			print("Oh noes! This user's "+category+" list does not exist.\nExiting..")
-			exit(0)
+			exit("[MAR: DNE error] - User "+category+" list does not exist.\nExiting..")
 
 		return links
