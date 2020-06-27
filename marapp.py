@@ -4,8 +4,9 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty
-from kivy.uix.dropdown import DropDown
+
 kivy.require("1.11.1")
 
 from MAList import Story, Profile
@@ -18,25 +19,23 @@ max_recom = 5
 class RecommendationsPage(GridLayout):
 	query_name = ObjectProperty(None)
 	query_category = ObjectProperty(None)
+	recommendations = []
 
-	# For now we just look for a recommendation list for the query's name
-	# and if they don't have a receommendations list, generate one.
 	def search_for_user(self):
-		# So name_query is now our username (i.e "amykyst")
 		filename = "rec_" + self.query_category.text + "_" + self.query_name.text + ".txt"
-		with open("./recommendation_lists/" + filename, "r") as storage:
-			if storage.readline() != "":
-				lines = storage.readlines()
-				for line in lines:
-					if "Link" in line:
-						link = line.split("Link: ")[1].strip()
-						print("Anime:", link)
-			else:
-				storage.close()
-				self.make_recommendations()
+		try:
+			storage = open("./recommendation_lists/" + filename, "r")
+			lines = storage.readlines()
+			for line in lines:
+				if "Link" in line:
+					link = line.split("Link: ")[1].strip()
+					self.recommendations.append(link)
+					print("Anime:", link)
+
+		except FileNotFoundError:
+			self.make_recommendations()
 
 		storage.close()
-
 
 	# Processes a list of recommendations if the user doesn't have any
 	def make_recommendations(self):
@@ -45,9 +44,9 @@ class RecommendationsPage(GridLayout):
 		r.recommend(self.query_category.text, min_thres, min_score, max_recom)
 		r.export_recommendations(self.query_category.text)
 
+
 	def app_exit(self):
 		exit(1)
-
 
 
 class MarApp(App):

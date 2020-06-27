@@ -1,44 +1,64 @@
 <RecommendationsPage>:
 	query_name: q_name
 	query_category: q_category
-	rows: 4
+	results: q_results
+	#cols: 1
+	rows: 3
 
 	GridLayout:
-		cols: 2
+		cols: 3
+		rows: 3
 
 		TextInput:
 			hint_text: "type here"
+			on_parent: dropdown.dismiss()
 			id: q_name
 			multiline: False
+			size_hint_y: None
+			height: "40dp"
+
+		Button:
+			id: q_category
+			text: "anime"
+			on_release: dropdown.open(self)
+			size_hint_y: None
+			height: "40dp"
+
+		DropDown:
+			id: dropdown
+			on_select: q_category.text = "{}".format(args[1])
+
+			Button:
+				text: "anime"
+				size_hint_y: None
+				height: "40dp"
+				on_release: dropdown.select("anime")
+
+			Button:
+				text: "manga"
+				size_hint_y: None
+				height: "40dp"
+				on_release: dropdown.select("manga")
 
 		Button:
 			id: user_search_btn
 			text: "Search"
 			on_press: root.search_for_user()
-
-	Button:
-		id: q_category
-		text: "anime"
-		on_release: dropdown.open(self)
-		size_hint_y: None
-		height: "48dp"
-
-	DropDown:
-		id: dropdown
-		on_parent: self.dismiss()
-		on_select: q_category.text = "{}".format(args[1])
-
-		Button:
-			text: "anime"
 			size_hint_y: None
-			height: "48dp"
-			on_release: dropdown.select("Anime")
+			height: "40dp"
 
-		Button:
-			text: "manga"
-			size_hint_y: None
-			height: "48dp"
-			on_release: dropdown.select("Manga")
+
+	BoxLayout:
+		orientation: "vertical"
+		id: q_results
+
+		Label:
+			text: "Box1"
+		Label:
+			text: "Box2"
+		Label:
+			text: "Box3"
+
 
 	Button:
 		id: app_exit_btn
