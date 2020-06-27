@@ -45,7 +45,6 @@ class Recommendations():
 	def export_recommendations(self, category):
 		filename = "rec_" + category + "_" + self.profile.username + ".txt"
 		storage = open("./recommendation_lists/" + filename, "w", errors="replace")
-		storage.write(self.profile.username + "\'s " + category + " recommendations:\n")
 
 		for story in self.get_recommendations(category):
 			storage.write(str(story))

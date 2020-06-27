@@ -1,0 +1,46 @@
+<RecommendationsPage>:
+	query_name: q_name
+	query_category: q_category
+	rows: 4
+
+	GridLayout:
+		cols: 2
+
+		TextInput:
+			hint_text: "type here"
+			id: q_name
+			multiline: False
+
+		Button:
+			id: user_search_btn
+			text: "Search"
+			on_press: root.search_for_user()
+
+	Button:
+		id: q_category
+		text: "anime"
+		on_release: dropdown.open(self)
+		size_hint_y: None
+		height: "48dp"
+
+	DropDown:
+		id: dropdown
+		on_parent: self.dismiss()
+		on_select: q_category.text = "{}".format(args[1])
+
+		Button:
+			text: "anime"
+			size_hint_y: None
+			height: "48dp"
+			on_release: dropdown.select("Anime")
+
+		Button:
+			text: "manga"
+			size_hint_y: None
+			height: "48dp"
+			on_release: dropdown.select("Manga")
+
+	Button:
+		id: app_exit_btn
+		text: "Exit"
+		on_press: root.app_exit()

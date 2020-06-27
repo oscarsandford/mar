@@ -68,9 +68,9 @@ class Story():
 		return self.my_rating
 
 	def __str__(self):
-		s = "\nTitle: " + self.title
+		s = "Title: " + self.title
 		s += "\nLink: " + str(self.link)
-		s += "\nUser Rating: " + str(self.my_rating) + "\n"
+		s += "\nUser Rating: " + str(self.my_rating) + "\n\n"
 		return s
 
 
@@ -136,7 +136,6 @@ class Profile():
 	def export_list(self, category):
 		filename = "mal_" + category + "_" + self.username + ".txt"
 		storage = open("./story_lists/" + filename, "w", errors="replace")
-		storage.write(self.username + "\'s " + category + " list:\n")
 		for story in self.get_list(category):
 			storage.write(str(story))
 		storage.close()
