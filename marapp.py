@@ -31,11 +31,11 @@ class RecommendationsPage(GridLayout):
 					link = line.split("Link: ")[1].strip()
 					self.recommendations.append(link)
 					print("Anime:", link)
+			storage.close()
 
 		except FileNotFoundError:
 			self.make_recommendations()
 
-		storage.close()
 
 	# Processes a list of recommendations if the user doesn't have any
 	def make_recommendations(self):
@@ -43,10 +43,6 @@ class RecommendationsPage(GridLayout):
 		r = Recommendations(profile)
 		r.recommend(self.query_category.text, min_thres, min_score, max_recom)
 		r.export_recommendations(self.query_category.text)
-
-
-	def app_exit(self):
-		exit(1)
 
 
 class MarApp(App):
