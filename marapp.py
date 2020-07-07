@@ -19,22 +19,32 @@ max_recom = 5
 class RecommendationsPage(GridLayout):
 	query_name = ObjectProperty(None)
 	query_category = ObjectProperty(None)
+	query_results = ObjectProperty(None)
 	recommendations = []
 
 	def search_for_user(self):
+		self.query_results.clear_widgets()
 		filename = "rec_" + self.query_category.text + "_" + self.query_name.text + ".txt"
 		try:
 			storage = open("./recommendation_lists/" + filename, "r")
 			lines = storage.readlines()
-			for line in lines:
-				if "Link" in line:
-					link = line.split("Link: ")[1].strip()
+			for i in range(len(lines)):
+				if "Title" in lines[i]:
+					title = lines[i].split("Title: ")[1].strip()
+					link = lines[i+1].split("Link: ")[1].strip()
+					# TODO: these lines are temp, add title instead
+					self.add_result_label(title)
 					self.recommendations.append(link)
-					print("Anime:", link)
+					print("Story:", link)
 			storage.close()
 
 		except FileNotFoundError:
 			self.make_recommendations()
+
+
+	def add_result_label(self, st):
+		label = Label(text=st)
+		self.query_results.add_widget(label)
 
 
 	# Processes a list of recommendations if the user doesn't have any
