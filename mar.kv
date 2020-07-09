@@ -2,12 +2,10 @@
 	query_name: q_name
 	query_category: q_category
 	query_results: q_results
-	#cols: 1
 	rows: 3
 
 	GridLayout:
 		cols: 3
-		rows: 3
 
 		TextInput:
 			hint_text: "type here"
@@ -23,6 +21,7 @@
 			on_release: dropdown.open(self)
 			size_hint_y: None
 			height: "40dp"
+			background_color: [200,2,4,0.5]
 
 		DropDown:
 			id: dropdown
@@ -32,12 +31,14 @@
 				text: "anime"
 				size_hint_y: None
 				height: "40dp"
+				background_color: [200,2,4,0.5]
 				on_release: dropdown.select("anime")
 
 			Button:
 				text: "manga"
 				size_hint_y: None
 				height: "40dp"
+				background_color: [200,2,4,0.5]
 				on_release: dropdown.select("manga")
 
 		Button:
@@ -46,6 +47,7 @@
 			on_press: root.search_for_user()
 			size_hint_y: None
 			height: "40dp"
+			background_color: [200,1,2,0.5]
 
 
 	BoxLayout:
@@ -56,4 +58,7 @@
 	Button:
 		id: app_exit_btn
 		text: "Exit"
-		on_press: root.exit(1)
+		size_hint_y: None
+		background_color: [200,2,2,0.5]
+		on_press: root.exit_app(1)
+		background_normal: "./assets/marapp_icon.png"

@@ -13,7 +13,7 @@ class Story():
 			t_div = self.soup.find("span", {"class":"h1-title"})
 			try:
 				self.title = t_div.find("span", {"class":"title-english"}).get_text()
-			except Exception as e:
+			except Exception:
 				self.title = t_div.find("span", {"itemprop":"name"}).get_text()
 
 			print("Appending . . . ", self.title)
@@ -109,7 +109,7 @@ class Profile():
 					story = Story("https://myanimelist.net" + link)
 					story.set_my_rating(score)
 					stories.append(story)
-		except Exception as e:
+		except Exception:
 			exit("[MAR: USR error] - User does not exist.\nExiting..")
 
 
@@ -154,7 +154,7 @@ class Profile():
 						if score >= threshold:
 							links.append(lines[i].split("Link: ")[1].strip())
 			storage.close()
-		except Exception as e:
+		except Exception:
 			exit("[MAR: DNE error] - User "+category+" list does not exist.\nExiting..")
 
 		return links
