@@ -8,13 +8,10 @@ class Story():
 		response = requests.get(url)
 		self.soup = BeautifulSoup(response.text, "html.parser")
 		self.link = url
-		self.title, self.score, self.rank, self.episodes, self.my_rating = " error", 0.0, 0, 0, 0
+		self.title, self.score, self.rank, self.episodes, self.my_rating = " N/A", 0.0, 0, 0, 0
 		try:
-			t_div = self.soup.find("span", {"class":"h1-title"})
-			try:
-				self.title = t_div.find("span", {"class":"title-english"}).get_text()
-			except Exception:
-				self.title = t_div.find("span", {"itemprop":"name"}).get_text()
+			t_div = self.soup.find("div", {"class":"h1-title"})
+			self.title = t_div.find("h1", {"class":"title-name"}).get_text()
 
 			print("Appending . . . ", self.title)
 
@@ -33,7 +30,7 @@ class Story():
 
 
 	# Returns list of recommendations from story page, up to length given by max
-	def get_recommendation_links(self, max):
+	def get_page_recommendation_links(self, link_cap):
 		links = []
 		response = requests.get(self.get_link() + "/userrecs")
 		r_soup = BeautifulSoup(response.text, "html.parser")
@@ -41,9 +38,10 @@ class Story():
 		for r in lst.find_all("div", {"class":"picSurround"}):
 			lk = r.find("a").get("href")
 			links.append(lk)
-			if len(links) >= max:
+			if len(links) >= link_cap:
 				break
 		return links
+
 
 
 	def get_link(self):
@@ -84,9 +82,9 @@ class Profile():
 		self.manga_list = []
 
 
-	# Return list of Story objects with the user's scores >= threshold
-	def set_stories(self, category, threshold):
-		print("\n\t<> Setting "+category+" stories! <>\n")
+	# Return list of Story objects with the user's scores >= min_score
+	def set_stories(self, category, min_score):
+		print("\n[Profile] Setting "+category+" stories!")
 		url = "https://myanimelist.net/"+category+"list/"+self.username
 		response = requests.get(url)
 		soup = BeautifulSoup(response.text, "html.parser")
@@ -104,7 +102,7 @@ class Profile():
 
 			for i in range(1, len(links)):
 				score = int(scores[i].split("\"")[0].replace(",", ""))
-				if score >= threshold:
+				if score >= min_score:
 					link = links[i].split("\"")[0].replace("\\", "")
 					story = Story("https://myanimelist.net" + link)
 					story.set_my_rating(score)
@@ -142,7 +140,7 @@ class Profile():
 
 
 	# Import list of story links with score >= threshold from existing user's storage file
-	def import_links(self, category, threshold):
+	def import_links(self, category, min_score):
 		filename = "mal_" + category + "_" + self.username + ".txt"
 		links = []
 		try:
@@ -151,10 +149,13 @@ class Profile():
 				for i in range(len(lines)):
 					if "Link" in lines[i] and "User Rating" in lines[i+1]:
 						score = int(lines[i+1].split("User Rating: ")[1])
-						if score >= threshold:
+						if score >= min_score:
 							links.append(lines[i].split("Link: ")[1].strip())
 			storage.close()
 		except Exception:
-			exit("[MAR: DNE error] - User "+category+" list does not exist.\nExiting..")
+			print("[Profile] "+self.username+"'s list does not exist. Creating list...")
+			self.set_all_stories(category)
+			self.export_list(category)
+			links = self.import_links(category, min_score)
 
 		return links

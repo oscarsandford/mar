@@ -1,18 +1,16 @@
-frosty114's anime list:
-
-Title: Fire Force
+Title: Enen no Shouboutai
 Link: https://myanimelist.net/anime/38671/Enen_no_Shouboutai
 User Rating: 9
 
-Title: Fate/stay night [Unlimited Blade Works]
+Title: Fate/stay night: Unlimited Blade Works
 Link: https://myanimelist.net/anime/22297/Fate_stay_night__Unlimited_Blade_Works
 User Rating: 8
 
-Title: JoJo's Bizarre Adventure: Golden Wind
+Title: JoJo no Kimyou na Bouken Part 5: Ougon no Kaze
 Link: https://myanimelist.net/anime/37991/JoJo_no_Kimyou_na_Bouken_Part_5__Ougon_no_Kaze
 User Rating: 0
 
-Title: Attack on Titan Season 2
+Title: Shingeki no Kyojin Season 2
 Link: https://myanimelist.net/anime/25777/Shingeki_no_Kyojin_Season_2
 User Rating: 0
 
@@ -20,23 +18,23 @@ Title: Bleach
 Link: https://myanimelist.net/anime/269/Bleach
 User Rating: 9
 
-Title: My Hero Academia
+Title: Boku no Hero Academia
 Link: https://myanimelist.net/anime/31964/Boku_no_Hero_Academia
 User Rating: 9
 
-Title: My Hero Academia 2
+Title: Boku no Hero Academia 2nd Season
 Link: https://myanimelist.net/anime/33486/Boku_no_Hero_Academia_2nd_Season
 User Rating: 9
 
-Title: My Hero Academia 3
+Title: Boku no Hero Academia 3rd Season
 Link: https://myanimelist.net/anime/36456/Boku_no_Hero_Academia_3rd_Season
 User Rating: 8
 
-Title: Code Geass: Lelouch of the Rebellion
+Title: Code Geass: Hangyaku no Lelouch
 Link: https://myanimelist.net/anime/1575/Code_Geass__Hangyaku_no_Lelouch
 User Rating: 10
 
-Title: Code Geass: Lelouch of the Rebellion R2
+Title: Code Geass: Hangyaku no Lelouch R2
 Link: https://myanimelist.net/anime/2904/Code_Geass__Hangyaku_no_Lelouch_R2
 User Rating: 10
 
@@ -52,7 +50,7 @@ Title: Fate/Zero
 Link: https://myanimelist.net/anime/10087/Fate_Zero
 User Rating: 10
 
-Title: Fate/Zero Season 2
+Title: Fate/Zero 2nd Season
 Link: https://myanimelist.net/anime/11741/Fate_Zero_2nd_Season
 User Rating: 10
 
@@ -88,31 +86,31 @@ Title: Initial D Third Stage
 Link: https://myanimelist.net/anime/187/Initial_D_Third_Stage
 User Rating: 9
 
-Title: JoJo's Bizarre Adventure
+Title: JoJo no Kimyou na Bouken (TV)
 Link: https://myanimelist.net/anime/14719/JoJo_no_Kimyou_na_Bouken_TV
 User Rating: 9
 
-Title: JoJo's Bizarre Adventure: Stardust Crusaders
+Title: JoJo no Kimyou na Bouken Part 3: Stardust Crusaders
 Link: https://myanimelist.net/anime/20899/JoJo_no_Kimyou_na_Bouken_Part_3__Stardust_Crusaders
 User Rating: 7
 
-Title: JoJo's Bizarre Adventure: Stardust Crusaders - Battle in Egypt
+Title: JoJo no Kimyou na Bouken Part 3: Stardust Crusaders 2nd Season
 Link: https://myanimelist.net/anime/26055/JoJo_no_Kimyou_na_Bouken_Part_3__Stardust_Crusaders_2nd_Season
 User Rating: 8
 
-Title: JoJo's Bizarre Adventure: Diamond is Unbreakable
+Title: JoJo no Kimyou na Bouken Part 4: Diamond wa Kudakenai
 Link: https://myanimelist.net/anime/31933/JoJo_no_Kimyou_na_Bouken_Part_4__Diamond_wa_Kudakenai
 User Rating: 10
 
-Title: Demon Slayer: Kimetsu no Yaiba
+Title: Kimetsu no Yaiba
 Link: https://myanimelist.net/anime/38000/Kimetsu_no_Yaiba
 User Rating: 9
 
-Title: The Seven Deadly Sins
+Title: Nanatsu no Taizai
 Link: https://myanimelist.net/anime/23755/Nanatsu_no_Taizai
 User Rating: 8
 
-Title: The Seven Deadly Sins: Signs of Holy War
+Title: Nanatsu no Taizai: Seisen no Shirushi
 Link: https://myanimelist.net/anime/31722/Nanatsu_no_Taizai__Seisen_no_Shirushi
 User Rating: 7
 
@@ -120,7 +118,7 @@ Title: One Punch Man
 Link: https://myanimelist.net/anime/30276/One_Punch_Man
 User Rating: 9
 
-Title: Attack on Titan
+Title: Shingeki no Kyojin
 Link: https://myanimelist.net/anime/16498/Shingeki_no_Kyojin
 User Rating: 9
 
@@ -132,7 +130,7 @@ Title: Sword Art Online II
 Link: https://myanimelist.net/anime/21881/Sword_Art_Online_II
 User Rating: 6
 
-Title: The Seven Deadly Sins: Wrath of the Gods
+Title: Nanatsu no Taizai: Kamigami no Gekirin
 Link: https://myanimelist.net/anime/39701/Nanatsu_no_Taizai__Kamigami_no_Gekirin
 User Rating: 8
 
@@ -159,3 +157,4 @@ User Rating: 0
 Title: Kimetsu no Yaiba Movie: Mugen Ressha-hen
 Link: https://myanimelist.net/anime/40456/Kimetsu_no_Yaiba_Movie__Mugen_Ressha-hen
 User Rating: 0
+

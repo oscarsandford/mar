@@ -42,6 +42,7 @@ class RecommendationsPage(GridLayout):
 			storage.close()
 
 		except FileNotFoundError:
+			print("[Search] No recommendations found. Creating recommendations...")
 			self.make_recommendations()
 
 
@@ -58,12 +59,20 @@ class RecommendationsPage(GridLayout):
 	def open_link(self, instance):
 		print("TODO: implement opening links with browser")
 
-	# Processes a list of recommendations if the user doesn't have any
+	# Processes a list of recommendations if the user doesn't have any, or
+	# if the client decides to generate new recommendations for a user
 	def make_recommendations(self):
-		profile = Profile(self.query_name.text)
-		r = Recommendations(profile)
-		r.recommend(self.query_category.text, int(self.results_min_score.value), int(self.results_count.value))
+		print("\n(1/3) Collecting "+self.query_name.text+"'s "+self.query_category.text+"...")
+		p = Profile(self.query_name.text)
+		story_links = p.import_links(self.query_category.text, int(self.results_min_score.value))
+
+		print("(2/3) Creating "+self.query_category.text+" recommendations...")
+		r = Recommendations(p)
+		r.recommend(story_links, self.query_category.text, int(self.results_min_score.value), int(self.results_count.value))
+
+		print("(3/3) Exporting...")
 		r.export_recommendations(self.query_category.text)
+
 
 	def exit_app(self, instance):
 		exit(1)
