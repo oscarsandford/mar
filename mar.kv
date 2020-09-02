@@ -1,8 +1,11 @@
 <RecommendationsPage>:
 	query_name: q_name
 	query_category: q_category
-	query_results: q_results
-	rows: 3
+	results_list: results
+	results_count: r_count_slider
+	results_min_score: r_min_score_slider
+	rows: 5
+	
 
 	GridLayout:
 		cols: 3
@@ -52,7 +55,45 @@
 
 	BoxLayout:
 		orientation: "vertical"
-		id: q_results
+		Label:
+			size_hint_y: None
+			height: "40dp"
+			text: "Generate Recommendations"
+			
+		GridLayout:
+			cols: 2
+			rows: 2
+			orientation: "vertical"
+			size_hint_y: None
+			height: "40dp"
+			Label:
+				text: "Number of Stories : " + str(int(r_count_slider.value))
+			Label:
+				text: "Minimum Score : "  + str(int(r_min_score_slider.value))
+			Slider:
+				id: r_count_slider
+				min: 0
+				max: 20
+				step: 1
+				cursor_size: ("16sp","16sp")
+			Slider:
+				id: r_min_score_slider
+				min: 1
+				max: 10
+				step: 1
+				cursor_size: ("16sp","16sp")
+
+		Button:
+			id: user_generate_btn
+			text: "Generate"
+			on_press: root.make_recommendations()
+			size_hint_y: None
+			height: "40dp"
+			background_color: [200,1,2,0.5]
+
+	BoxLayout:
+		orientation: "vertical"
+		id: results
 
 
 	Button:

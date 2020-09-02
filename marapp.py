@@ -17,18 +17,18 @@ import webbrowser
 Config.set("graphics", "width", "400")
 Config.set("graphics", "height", "700")
 Config.set("graphics", "resizable", False)
-min_thres = 10
-min_score = 8
-max_recom = 5
+
 
 class RecommendationsPage(GridLayout):
 	query_name = ObjectProperty(None)
 	query_category = ObjectProperty(None)
-	query_results = ObjectProperty(None)
+	results_list = ObjectProperty(None)
+	results_count = ObjectProperty(None)
+	results_min_score = ObjectProperty(None)
 	recommendations = []
 
 	def search_for_user(self):
-		self.query_results.clear_widgets()
+		self.results_list.clear_widgets()
 		filename = "rec_" + self.query_category.text + "_" + self.query_name.text + ".txt"
 		try:
 			storage = open("./recommendation_lists/" + filename, "r")
@@ -53,7 +53,7 @@ class RecommendationsPage(GridLayout):
 			height="40dp",
 			background_color=[1,30,150,0.5]
 		)
-		self.query_results.add_widget(label)
+		self.results_list.add_widget(label)
 
 	def open_link(self, instance):
 		print("TODO: implement opening links with browser")
@@ -62,7 +62,7 @@ class RecommendationsPage(GridLayout):
 	def make_recommendations(self):
 		profile = Profile(self.query_name.text)
 		r = Recommendations(profile)
-		r.recommend(self.query_category.text, min_thres, min_score, max_recom)
+		r.recommend(self.query_category.text, int(self.results_min_score.value), int(self.results_count.value))
 		r.export_recommendations(self.query_category.text)
 
 	def exit_app(self, instance):

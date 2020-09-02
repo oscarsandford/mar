@@ -11,18 +11,18 @@ class Recommendations():
 
 
 	# Makes list of story recommendations that user has not viewed
-	# with score >= min_score based on their stories with score >= threshold
-	def recommend(self, category, threshold, min_score, max_rec):
+	# with score >= min_score based on their stories with score >= min_score
+	def recommend(self, category, min_score, max_results):
 		print("\n\t<> Creating "+category+" recommendations! <>\n")
 
-		best_user_links = self.profile.import_links(category, threshold)
+		best_user_links = self.profile.import_links(category, min_score)
 		shuffle(best_user_links)
 		all_user_links = self.profile.import_links(category, 0)
 		recommended_links = []
 
-		for link in best_user_links[:max_rec]:
+		for link in best_user_links[:max_results]:
 			story = Story(link)
-			recommended_links += story.get_recommendation_links(max_rec)
+			recommended_links += story.get_recommendation_links(max_results)
 
 		list(set(recommended_links))
 
