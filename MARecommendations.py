@@ -20,13 +20,16 @@ class Recommendations():
 			story = Story(u_link)
 			i += 1
 
-			page_links = story.get_page_recommendation_links(result_count)
-			print(page_links)
+			page_links = story.get_page_recommendation_links()
 			for link in page_links:
 				if link not in user_links:
 					recommended_links.append(link)
 
 		list(set(recommended_links))
+
+		for link in recommended_links:
+			story = Story(link)
+			self.get_recommendations(category).append(story)
 
 
 	# Returns a given set of recommendations, defaulting to anime

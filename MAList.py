@@ -29,17 +29,22 @@ class Story():
 			print("[MAR: STY] - Story page has irregularity. ("+url+")\nException:",e,"\n")
 
 
-	# Returns list of recommendations from story page, up to length given by max
-	def get_page_recommendation_links(self, link_cap):
+	# Returns list of recommendations from story page
+	def get_page_recommendation_links(self):
 		links = []
-		response = requests.get(self.get_link() + "/userrecs")
-		r_soup = BeautifulSoup(response.text, "html.parser")
-		lst = r_soup.find("div", {"class":"js-scrollfix-bottom-rel"})
-		for r in lst.find_all("div", {"class":"picSurround"}):
-			lk = r.find("a").get("href")
-			links.append(lk)
-			if len(links) >= link_cap:
+		rec_section = self.soup.find("ul", {"class":"anime-slide js-anime-slide"})
+		for r in rec_section.find_all("a", {"class":"link bg-center"}):
+			link = r.get("href")
+
+			if "recommendations" in link:
+				link = link.replace("recommendations/", "")
+			else:
+				link = link.split("-")[0]
+
+			links.append(link)
+			if len(links) > 3:
 				break
+
 		return links
 
 
