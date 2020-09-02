@@ -32,17 +32,23 @@ class Story():
 	# Returns list of recommendations from story page
 	def get_page_recommendation_links(self):
 		links = []
+		page_link_code = self.get_link().split("/")[4]
+
 		rec_section = self.soup.find("ul", {"class":"anime-slide js-anime-slide"})
 		for r in rec_section.find_all("a", {"class":"link bg-center"}):
 			link = r.get("href")
 
+			# edge case
 			if "recommendations" in link:
 				link = link.replace("recommendations/", "")
-			else:
-				link = link.split("-")[0]
 
-			links.append(link)
-			if len(links) > 3:
+			link_code = link.split("/")[4].split("-")[0]
+
+
+			if page_link_code != link_code:
+				links.append(link.split("-")[0])
+
+			if len(links) >= 3:
 				break
 
 		return links

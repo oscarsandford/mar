@@ -1,39 +1,3 @@
-Title: Kiseijuu: Sei no Kakuritsu
-Link: https://myanimelist.net/anime/22535-35120
-User Rating: 0
-
-Title: Kenpuu Denki Berserk
-Link: https://myanimelist.net/anime/33-35120
-User Rating: 0
-
-Title: Kemonozume
-Link: https://myanimelist.net/anime/1454-35120
-User Rating: 0
-
-Title: Neon Genesis Evangelion
-Link: https://myanimelist.net/anime/30-35120
-User Rating: 0
-
-Title: Akame ga Kill!
-Link: https://myanimelist.net/anime/22199-23755
-User Rating: 0
-
-Title: Fairy Tail
-Link: https://myanimelist.net/anime/6702-23755
-User Rating: 0
-
-Title: Nanatsu no Taizai
-Link: https://myanimelist.net/anime/23755-25013
-User Rating: 0
-
-Title: Magi: The Labyrinth of Magic
-Link: https://myanimelist.net/anime/14513-23755
-User Rating: 0
-
-Title: Redline
-Link: https://myanimelist.net/anime/6675-22507
-User Rating: 0
-
 Title: Nekomonogatari: Kuro
 Link: https://myanimelist.net/anime/15689/Nekomonogatari__Kuro?suggestion
 User Rating: 0
@@ -44,5 +8,29 @@ User Rating: 0
 
 Title: Tennis no Ouji-sama: Zenkoku Taikai-hen - Semifinal
 Link: https://myanimelist.net/anime/2752/Tennis_no_Ouji
+User Rating: 0
+
+Title: Tennis no Ouji-sama
+Link: https://myanimelist.net/anime/22
+User Rating: 0
+
+Title: Hikaru no Go
+Link: https://myanimelist.net/anime/135
+User Rating: 0
+
+Title: Redline
+Link: https://myanimelist.net/anime/6675
+User Rating: 0
+
+Title: Kiseijuu: Sei no Kakuritsu
+Link: https://myanimelist.net/anime/22535
+User Rating: 0
+
+Title: Kenpuu Denki Berserk
+Link: https://myanimelist.net/anime/33
+User Rating: 0
+
+Title: Kemonozume
+Link: https://myanimelist.net/anime/1454
 User Rating: 0
 

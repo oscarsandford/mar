@@ -15,17 +15,20 @@ class Recommendations():
 		recommended_links, i = [], 0
 		shuffle(user_links)
 
+		print("[Recommendations] (1/2) Collecting some user stories...")
+
 		while len(recommended_links) < result_count and i < len(user_links):
 			u_link = user_links[i]
 			story = Story(u_link)
 			i += 1
 
 			page_links = story.get_page_recommendation_links()
+
 			for link in page_links:
-				if link not in user_links:
+				if link not in user_links and link not in recommended_links:
 					recommended_links.append(link)
 
-		list(set(recommended_links))
+		print("[Recommendations] (2/2) Creating recommendations...")
 
 		for link in recommended_links:
 			story = Story(link)
