@@ -122,7 +122,6 @@ class Profile():
 				link = links[i].split("\"")[0].replace("\\", "")
 				score = int(scores[i].split("\"")[0].replace(",", ""))
 				story = Story("https://myanimelist.net" + link)
-				story.set_my_rating(score)
 				stories.append(story)
 		except Exception:
 			exit("[Profile] Error : User does not exist.\nExiting..")
