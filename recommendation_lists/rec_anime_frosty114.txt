@@ -1,13 +1,21 @@
-Title: Kiseijuu: Sei no Kakuritsu
-Link: https://myanimelist.net/anime/22535
+Title: Ginga Eiyuu Densetsu
+Link: https://myanimelist.net/anime/820
 User Rating: 0
 
-Title: Kenpuu Denki Berserk
-Link: https://myanimelist.net/anime/33
+Title: Mobile Suit Gundam SEED
+Link: https://myanimelist.net/anime/93
 User Rating: 0
 
-Title: Kemonozume
-Link: https://myanimelist.net/anime/1454
+Title: Nekomonogatari: Kuro
+Link: https://myanimelist.net/anime/15689/Nekomonogatari__Kuro?suggestion
+User Rating: 0
+
+Title: Tennis no Ouji-sama: Zenkoku Taikai-hen
+Link: https://myanimelist.net/anime/995/Tennis_no_Ouji
+User Rating: 0
+
+Title: Tennis no Ouji-sama: Zenkoku Taikai-hen - Semifinal
+Link: https://myanimelist.net/anime/2752/Tennis_no_Ouji
 User Rating: 0
 
 Title: Track City
@@ -22,16 +30,12 @@ Title: Cowboy Bebop
 Link: https://myanimelist.net/anime/1
 User Rating: 0
 
-Title: Nekomonogatari: Kuro
-Link: https://myanimelist.net/anime/15689/Nekomonogatari__Kuro?suggestion
+Title: Chrno Crusade
+Link: https://myanimelist.net/anime/60
 User Rating: 0
 
-Title: Tennis no Ouji-sama: Zenkoku Taikai-hen
-Link: https://myanimelist.net/anime/995/Tennis_no_Ouji
-User Rating: 0
-
-Title: Tennis no Ouji-sama: Zenkoku Taikai-hen - Semifinal
-Link: https://myanimelist.net/anime/2752/Tennis_no_Ouji
+Title: Neon Genesis Evangelion
+Link: https://myanimelist.net/anime/30
 User Rating: 0
 
 Title: Naruto

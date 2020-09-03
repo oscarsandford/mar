@@ -7,24 +7,31 @@ class Story():
 	# This initializer takes a Story url and scrapes info from it to define the class.
 	def __init__(self, url):
 		response = requests.get(url)
+
 		self.soup = BeautifulSoup(response.text, "html.parser")
 		self.link = url
 		self.title, self.score, self.rank, self.episodes, self.my_rating = " N/A", 0.0, 0, 0, 0
+
 		try:
+			# Define title
 			t_div = self.soup.find("div", {"class":"h1-title"})
 			self.title = t_div.find("h1", {"class":"title-name"}).get_text()
 
 			print("\tAppending . . . ", self.title)
 
+			# Define userbase average score
 			s_div = self.soup.find("div", {"class":"fl-l score"}).get_text()
 			if s_div != "N/A":
 				self.score = float(s_div)
 
+			# Define userbase rank on MAL
 			r_div = self.soup.find("span", {"class":"numbers ranked"}).find("strong").get_text()
 			if r_div != "N/A":
 				self.rank = int(r_div.split("#")[1])
 
-			self.episodes = int(self.soup.find_all(class_="spaceit")[3].get_text().split("/")[1])
+			# Define the number of episodes in the story
+			# (Could be causing issues with manga! Might have to remove or figure a workaround.)
+			# self.episodes = int(self.soup.find_all(class_="spaceit")[3].get_text().split("/")[1])
 
 		except Exception as e:
 			print("[Story] Error : Story page has an irregularity. ("+url+")\nException:",e,"\n")
@@ -120,11 +127,16 @@ class Profile():
 
 			for i in range(1, len(links)):
 				link = links[i].split("\"")[0].replace("\\", "")
+				link_code = link.split("/")[2]
+
 				score = int(scores[i].split("\"")[0].replace(",", ""))
-				story = Story("https://myanimelist.net" + link)
+				story = Story("https://myanimelist.net/"+category+"/"+ link_code)
+
+				story.set_my_rating(score)
 				stories.append(story)
+
 		except Exception:
-			exit("[Profile] Error : User does not exist.\nExiting..")
+			print("[Profile] Error : User does not exist!")
 
 		if category == "manga":
 			self.manga_list = stories

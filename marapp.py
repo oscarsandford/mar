@@ -68,7 +68,7 @@ class RecommendationsPage(GridLayout):
 		p = Profile(self.query_name.text)
 		story_links = p.import_links(self.query_category.text, int(self.results_min_score.value))
 
-		print("(2/3) Creating "+self.query_category.text+" recommendations...")
+		print("(2/3) Creating "+self.query_category.text+" recommendations with "+str(len(story_links))+" stories...")
 		r = Recommendations(p)
 		r.recommend(story_links, self.query_category.text, int(self.results_min_score.value), int(self.results_count.value))
 
