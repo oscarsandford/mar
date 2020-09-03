@@ -1,15 +1,3 @@
-Title: Kiseijuu: Sei no Kakuritsu
-Link: https://myanimelist.net/anime/22535
-User Rating: 0
-
-Title: Kenpuu Denki Berserk
-Link: https://myanimelist.net/anime/33
-User Rating: 0
-
-Title: Kemonozume
-Link: https://myanimelist.net/anime/1454
-User Rating: 0
-
 Title: Nekomonogatari: Kuro
 Link: https://myanimelist.net/anime/15689/Nekomonogatari__Kuro?suggestion
 User Rating: 0
@@ -22,15 +10,51 @@ Title: Tennis no Ouji-sama: Zenkoku Taikai-hen - Semifinal
 Link: https://myanimelist.net/anime/2752/Tennis_no_Ouji
 User Rating: 0
 
+Title: Kiseijuu: Sei no Kakuritsu
+Link: https://myanimelist.net/anime/22535
+User Rating: 0
+
+Title: Kenpuu Denki Berserk
+Link: https://myanimelist.net/anime/33
+User Rating: 0
+
+Title: Kemonozume
+Link: https://myanimelist.net/anime/1454
+User Rating: 0
+
 Title: Death Note
 Link: https://myanimelist.net/anime/1535
 User Rating: 0
 
-Title: Mobile Suit Gundam 00
-Link: https://myanimelist.net/anime/2581
+Title: Ginga Eiyuu Densetsu
+Link: https://myanimelist.net/anime/820
 User Rating: 0
 
-Title: Cowboy Bebop
-Link: https://myanimelist.net/anime/1
+Title: Mobile Suit Gundam SEED
+Link: https://myanimelist.net/anime/93
+User Rating: 0
+
+Title: Akame ga Kill!
+Link: https://myanimelist.net/anime/22199
+User Rating: 0
+
+Title: Fairy Tail
+Link: https://myanimelist.net/anime/6702
+User Rating: 0
+
+Title: Magi: The Labyrinth of Magic
+Link: https://myanimelist.net/anime/14513
+User Rating: 0
+
+Title: Chrno Crusade
+Link: https://myanimelist.net/anime/60
+User Rating: 0
+
+Title: Neon Genesis Evangelion
+Link: https://myanimelist.net/anime/30
+User Rating: 0
+
+Title: Naruto
+Link: https://myanimelist.net/anime/20
 User Rating: 0
 

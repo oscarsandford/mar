@@ -56,8 +56,10 @@ class RecommendationsPage(GridLayout):
 		)
 		self.results_list.add_widget(label)
 
+
 	def open_link(self, instance):
 		print("TODO: implement opening links with browser")
+
 
 	# Processes a list of recommendations if the user doesn't have any, or
 	# if the client decides to generate new recommendations for a user
@@ -72,6 +74,7 @@ class RecommendationsPage(GridLayout):
 
 		print("(3/3) Exporting...")
 		r.export_recommendations(self.query_category.text)
+		print("(@) Complete!")
 
 
 	def exit_app(self, instance):
