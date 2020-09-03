@@ -23,21 +23,10 @@ In its current state, this project requires installation of the following:
 ## Usage
 
 ### Command Line
-This program can be run by navigating to the repository folder. The file `client.py` can be run in a terminal with the following command.
-```
-python client.py <MAL username> <list arguments>
-```
-List arguments can be chosen from the following list. Multiple arguments are allowed and the order does not matter, but take care (i.e. you cannot create manga recommendations for a user before defining their manga list). If a category is not specified, the default will be anime.
-
-- `!a` Specifies anime category
-- `!m` Specifies manga category
-- `-c` Create complete list for specified category
-- `-r` Create recommendations list for specified category based on existing user list
-
-Please note that the first argument **must** be the username of the target. Also note that this script is very much out of date, and it is safe to say that the Kivy app is a more reliable way to test functionality (alongside writing your own program).
+Deprecated.
 
 ### Kivy Application
-The work in progress Kivy app can be launched using Python. Execute `python marapp.py` in a terminal to launch.
+The work in progress Kivy app can be launched from the terminal using Python. Execute `python marapp.py` in a terminal to launch.
 
 ## Authors
 Created by Oscar Sandford.
