@@ -38,16 +38,17 @@ class Story():
 		for r in rec_section.find_all("a", {"class":"link bg-center"}):
 			link = r.get("href")
 
-			# edge case
+			# Edge case where recommendations is in the url for some reason
 			if "recommendations" in link:
 				link = link.replace("recommendations/", "")
 
 			link_code = link.split("/")[4].split("-")[0]
 
-
+			# Compare page code against potential links
 			if page_link_code != link_code:
 				links.append(link.split("-")[0])
 
+			# Just take the top 3 recommendations before moving on
 			if len(links) >= 3:
 				break
 

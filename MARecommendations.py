@@ -6,8 +6,8 @@ class Recommendations():
 	# Recommends stories base on profile's story lists
 	def __init__(self, profile):
 		self.profile = profile
-		self.anime_recmd = []
-		self.manga_recmd = []
+		self.anime_r_list = []
+		self.manga_r_list = []
 
 	# Makes list of story recommendations that user has not viewed
 	# with score >= min_score based on their stories with score >= min_score
@@ -38,9 +38,9 @@ class Recommendations():
 	# Returns a given set of recommendations, defaulting to anime
 	def get_recommendations(self, category):
 		if category == "manga":
-			return self.manga_recmd
+			return self.manga_r_list
 		else:
-			return self.anime_recmd
+			return self.anime_r_list
 
 
 	# Export recommendations to plaintext file
