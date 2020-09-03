@@ -15,21 +15,26 @@ class Recommendations():
 	# Get a collection of stories, look at each story page and grab its recommendation
 	# links. Add any of these links to the list of recommendations, if not already seen.
 	def recommend(self, user_links, category, min_score, result_count):
-		recommended_links, i = [], 0
-		shuffle(user_links)
-
+		recommended_links = []
+		
 		print("[Recommendations] (1/2) Collecting some user stories...")
 
-		while len(recommended_links) < result_count and i < len(user_links):
-			u_link = user_links[i]
-			story = Story(u_link)
-			i += 1
+		shuffle(user_links)
+		i = 0
 
+		for page in user_links:
+			story = Story(page)
 			page_links = story.get_page_recommendation_links()
+			i = 0
 
-			for link in page_links:
-				if link not in user_links and link not in recommended_links:
+			while len(recommended_links) < result_count and i < len(page_links):
+				link = page_links[i]
+				if link not in user_links + recommended_links:
 					recommended_links.append(link)
+				i += 1
+
+			if len(recommended_links) >= result_count:
+				break
 
 		print("[Recommendations] (2/2) Creating recommendations...")
 
