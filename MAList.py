@@ -1,3 +1,4 @@
+import os.path
 import requests
 from bs4 import BeautifulSoup
 
@@ -136,7 +137,7 @@ class Profile():
 				stories.append(story)
 
 		except Exception:
-			print("[Profile] Error : User does not exist!")
+			print("[Profile] Error : User does not exist! (set_all_stories)")
 
 		if category == "manga":
 			self.manga_list = stories
@@ -152,8 +153,12 @@ class Profile():
 			return self.anime_list
 
 
-	# Export stories to plaintext file
+	# Export stories to plaintext file. Don't do this if
+	# the list is empty to prevent created garbage empty lists.
 	def export_list(self, category):
+		if len(self.get_list(category)) == 0:
+			return
+
 		filename = "mal_" + category + "_" + self.username + ".txt"
 		storage = open("./story_lists/" + filename, "w", errors="replace")
 		for story in self.get_list(category):
@@ -167,20 +172,22 @@ class Profile():
 	def import_links(self, category, min_score):
 		filename = "mal_" + category + "_" + self.username + ".txt"
 		links = []
-		try:
-			with open("./story_lists/" + filename, "r") as storage:
-				lines = storage.readlines()
-				for i in range(len(lines)):
-					if "Link" in lines[i] and "User Rating" in lines[i+1]:
-						score = int(lines[i+1].split("User Rating: ")[1])
-						if score >= min_score:
-							links.append(lines[i].split("Link: ")[1].strip())
-			storage.close()
 
-		except Exception:
+		if not os.path.isfile("./story_lists/" + filename):
 			print("[Profile] "+self.username+"'s list does not exist. Creating list...")
 			self.set_all_stories(category)
 			self.export_list(category)
-			links = self.import_links(category, min_score)
+
+		try:
+			with open("./story_lists/" + filename, "r") as storage:
+					lines = storage.readlines()
+					for i in range(len(lines)):
+						if "Link" in lines[i] and "User Rating" in lines[i+1]:
+							score = int(lines[i+1].split("User Rating: ")[1])
+							if score >= min_score:
+								links.append(lines[i].split("Link: ")[1].strip())
+			storage.close()
+		except Exception:
+			print("[Profile] Error : User does not exist! (import_links)")
 
 		return links

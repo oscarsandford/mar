@@ -6,11 +6,55 @@
 	results_min_score: r_min_score_slider
 	q_category: q_category.__self__
 
-	rows: 5
+	rows: 4
 	
-
+	BoxLayout:
+		orientation: "vertical"
+		Label:
+			size_hint_y: None
+			height: "40dp"
+			text: "Generate Recommendations"
+			
 	GridLayout:
 		cols: 3
+		rows: 2
+
+		BoxLayout:
+			orientation: "vertical"
+			size_hint_y: None
+			height: "40dp"
+			Label:
+				text: "Recommend "+str(int(r_count_slider.value))+" stories"
+				font_size: "12sp"
+			Slider:
+				id: r_count_slider
+				min: 0
+				max: 20
+				step: 1
+				cursor_size: ("16sp","16sp")
+
+		BoxLayout:
+			orientation: "vertical"
+			size_hint_y: None
+			height: "40dp"
+			Label:
+				text: "With stories I scored ≥"+str(int(r_min_score_slider.value))
+				font_size: "12sp"
+			Slider:
+				id: r_min_score_slider
+				min: 1
+				max: 10
+				step: 1
+				cursor_size: ("16sp","16sp")
+
+		Button:
+			id: user_generate_btn
+			text: "Generate"
+			on_press: root.make_recommendations()
+			size_hint_y: None
+			height: "40dp"
+			background_color: [200,1,2,0.5]
+
 
 		TextInput:
 			hint_text: "type here"
@@ -28,23 +72,23 @@
 			height: "40dp"
 			background_color: [200,2,4,0.5]
 
-		DropDown:
-			id: dropdown
-			on_select: q_category.text = "{}".format(args[1])
+			DropDown:
+				id: dropdown
+				on_select: q_category.text = "{}".format(args[1])
 
-			Button:
-				text: "anime"
-				size_hint_y: None
-				height: "40dp"
-				background_color: [200,2,4,0.5]
-				on_release: dropdown.select("anime")
+				Button:
+					text: "anime"
+					size_hint_y: None
+					height: "40dp"
+					background_color: [200,2,4,0.5]
+					on_release: dropdown.select("anime")
 
-			Button:
-				text: "manga"
-				size_hint_y: None
-				height: "40dp"
-				background_color: [200,2,4,0.5]
-				on_release: dropdown.select("manga")
+				Button:
+					text: "manga"
+					size_hint_y: None
+					height: "40dp"
+					background_color: [200,2,4,0.5]
+					on_release: dropdown.select("manga")
 
 		Button:
 			id: user_search_btn
@@ -55,48 +99,22 @@
 			background_color: [200,1,2,0.5]
 
 
-	BoxLayout:
-		orientation: "vertical"
-		Label:
-			size_hint_y: None
-			height: "40dp"
-			text: "Generate Recommendations"
-			
-		GridLayout:
-			cols: 2
-			rows: 2
-			orientation: "vertical"
-			size_hint_y: None
-			height: "40dp"
-			Label:
-				text: "Number of Stories : " + str(int(r_count_slider.value))
-			Label:
-				text: "Minimum Score : "  + str(int(r_min_score_slider.value))
-			Slider:
-				id: r_count_slider
-				min: 0
-				max: 20
-				step: 1
-				cursor_size: ("16sp","16sp")
-			Slider:
-				id: r_min_score_slider
-				min: 1
-				max: 10
-				step: 1
-				cursor_size: ("16sp","16sp")
-
-		Button:
-			id: user_generate_btn
-			text: "Generate"
-			on_press: root.make_recommendations()
-			size_hint_y: None
-			height: "40dp"
-			background_color: [200,1,2,0.5]
-
-	BoxLayout:
-		orientation: "vertical"
+	
+	# Section for results when client presses "Search" button
+	# BoxLayout:
+	# 	orientation: "vertical"
+	# 	id: results
+	ScrollView:
 		id: results
+		size_hint: (1, .9)
+		bar_width: 10
+		bar_color: 1, 0, 0, 1   # red
+		bar_inactive_color: 0, 0, 1, 1   # blue
+		effect_cls: "ScrollEffect"
+		scroll_type: ['bars']
 
+		Label:
+			text: "ASD\n" * 500
 
 	Button:
 		id: app_exit_btn

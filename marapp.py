@@ -2,9 +2,7 @@ import kivy
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.button import Button
-from kivy.uix.textinput import TextInput
 from kivy.uix.gridlayout import GridLayout
-from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty
 from kivy.config import Config
 
@@ -14,9 +12,9 @@ from MAList import Story, Profile
 from MARecommendations import Recommendations
 import webbrowser
 
-Config.set("graphics", "width", "400")
-Config.set("graphics", "height", "700")
-Config.set("graphics", "resizable", False)
+Config.set("graphics", "width", "420")
+Config.set("graphics", "height", "720")
+Config.set("graphics", "resizable", True)
 
 
 class RecommendationsPage(GridLayout):
@@ -28,6 +26,7 @@ class RecommendationsPage(GridLayout):
 	recommendations = []
 
 	def search_for_user(self):
+
 		self.results_list.clear_widgets()
 		filename = "rec_" + self.query_category.text + "_" + self.query_name.text + ".txt"
 		try:
@@ -64,9 +63,15 @@ class RecommendationsPage(GridLayout):
 	# Processes a list of recommendations if the user doesn't have any, or
 	# if the client decides to generate new recommendations for a user
 	def make_recommendations(self):
+		if self.query_name.text == "":
+			return
+
 		print("\n(1/3) Collecting "+self.query_name.text+"'s "+self.query_category.text+"...")
 		p = Profile(self.query_name.text)
 		story_links = p.import_links(self.query_category.text, int(self.results_min_score.value))
+
+		if len(story_links) == 0:
+			return
 
 		print("(2/3) Creating "+self.query_category.text+" recommendations with "+str(len(story_links))+" stories...")
 		r = Recommendations(p)
