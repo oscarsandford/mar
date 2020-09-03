@@ -32,26 +32,29 @@ class Story():
 
 	# Returns list of recommendations from a story page
 	def get_page_recommendation_links(self):
-		links = []
-		page_link_code = self.get_link().split("/")[4]
+		try:
+			links = []
+			page_link_code = self.get_link().split("/")[4]
 
-		rec_section = self.soup.find("ul", {"class":"anime-slide js-anime-slide"})
-		for r in rec_section.find_all("a", {"class":"link bg-center"}):
-			link = r.get("href")
+			rec_section = self.soup.find("ul", {"class":"anime-slide js-anime-slide"})
+			for r in rec_section.find_all("a", {"class":"link bg-center"}):
+				link = r.get("href")
 
-			# Edge case where recommendations is in the url for some reason
-			if "recommendations" in link:
-				link = link.replace("recommendations/", "")
+				# Edge case where recommendations is in the url for some reason
+				if "recommendations" in link:
+					link = link.replace("recommendations/", "")
 
-			link_code = link.split("/")[4].split("-")[0]
+				link_code = link.split("/")[4].split("-")[0]
 
-			# Compare page code against potential links
-			if page_link_code != link_code:
-				links.append(link.split("-")[0])
+				# Compare page code against potential links
+				if page_link_code != link_code:
+					links.append(link.split("-")[0])
 
-			# Just take the top 3 recommendations before moving on
-			if len(links) >= 3:
-				break
+				# Just take the top 3 recommendations before moving on
+				if len(links) >= 3:
+					break
+		except Exception as e:
+			print("[Story] Error : Page recommendations not working. ("+self.get_link()+")\nException:",e,"\n")
 
 		return links
 
@@ -97,9 +100,9 @@ class Profile():
 		self.manga_list = []
 
 
-	# Return list of with every Story the user has recorded on MAL for a given category
+	# Set list of every Story the user has recorded on MAL for a given category
 	def set_all_stories(self, category):
-		print("\n[Profile] Setting "+category+" stories!")
+		print("[Profile] Setting "+category+" stories!")
 		url = "https://myanimelist.net/"+category+"list/"+self.username
 		response = requests.get(url)
 		soup = BeautifulSoup(response.text, "html.parser")
@@ -117,13 +120,17 @@ class Profile():
 
 			for i in range(1, len(links)):
 				link = links[i].split("\"")[0].replace("\\", "")
+				score = int(scores[i].split("\"")[0].replace(",", ""))
 				story = Story("https://myanimelist.net" + link)
 				story.set_my_rating(score)
 				stories.append(story)
 		except Exception:
 			exit("[Profile] Error : User does not exist.\nExiting..")
 
-		return stories
+		if category == "manga":
+			self.manga_list = stories
+		else:
+			self.anime_list = stories
 
 
 	# Returns a given list, defaulting to anime
