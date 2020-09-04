@@ -101,9 +101,10 @@ class Story():
 class Profile():
 
 	# Create a Profile for some given user with a username.
+	# Keep everything lowercase so "frosty" and "Frosty" are the same.
 	# Set up blank lists for anime and manga.
 	def __init__(self, username):
-		self.username = username
+		self.username = username.lower()
 		self.anime_list = []
 		self.manga_list = []
 

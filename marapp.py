@@ -14,7 +14,7 @@ import webbrowser
 
 Config.set("graphics", "width", "420")
 Config.set("graphics", "height", "720")
-Config.set("graphics", "resizable", True)
+Config.set("graphics", "resizable", False)
 
 
 class RecommendationsPage(GridLayout):
@@ -23,7 +23,6 @@ class RecommendationsPage(GridLayout):
 	results_list = ObjectProperty(None)
 	results_count = ObjectProperty(None)
 	results_min_score = ObjectProperty(None)
-	recommendations = []
 
 	def search_for_user(self):
 
@@ -36,24 +35,23 @@ class RecommendationsPage(GridLayout):
 				if "Title" in lines[i]:
 					title = lines[i].split("Title: ")[1].strip()
 					link = lines[i+1].split("Link: ")[1].strip()
-					self.add_result_label(title, link)
-					self.recommendations.append(link)
+
+					btn = Button(
+						text=title,
+						on_press=self.open_link,
+						size_hint_y=None,
+						height="40dp",
+						color=[0,0,0,1],
+						background_color=[1,30,150,0.8]
+					)
+
+					self.results_list.add_widget(btn)
+
 			storage.close()
 
 		except FileNotFoundError:
 			print("[Search] No recommendations found. Creating recommendations...")
 			self.make_recommendations()
-
-
-	def add_result_label(self, label_title, label_link):
-		label = Button(
-			text=label_title,
-			on_press=self.open_link,
-			size_hint_y=None,
-			height="40dp",
-			background_color=[1,30,150,0.5]
-		)
-		self.results_list.add_widget(label)
 
 
 	def open_link(self, instance):
@@ -86,9 +84,9 @@ class RecommendationsPage(GridLayout):
 		exit(1)
 
 
-class MarApp(App):
+class MARApp(App):
 	def build(self):
 		return RecommendationsPage()
 
 if __name__ == '__main__':
-	MarApp().run()
+	MARApp().run()
