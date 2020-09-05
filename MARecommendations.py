@@ -15,7 +15,6 @@ class Recommendations():
 	# Given an existing list and parameters from the client, choose random stories
 	# from which to draw recommendations from. Add these stories to the main list.
 	# (TODO: min_score currently not used, but will likely be!)
-	# ( !!! TODO: duplicate issue is abound!)
 	def recommend(self, user_list, min_score, result_count):
 		tmp = []
 		used_links = [[]]
