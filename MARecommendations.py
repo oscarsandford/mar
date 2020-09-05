@@ -1,8 +1,14 @@
 import requests
 import random
+import time # for performance testing
 from bs4 import BeautifulSoup
 
 class Recommendations():
+
+	# Globals
+	# title_index = 0
+	# link_index = 1
+	# score_index = 2
 
 	# Create Recommendations for some given Profile.
 	# Set up blank list. This instance will handle only a single category: anime or manga.
@@ -12,36 +18,54 @@ class Recommendations():
 		self.recommendations = []
 
 
+	def get_link_code(self, link):
+		return link.split("/")[4]
+
 	# Given an existing list and parameters from the client, choose random stories
 	# from which to draw recommendations from. Add these stories to the main list.
 	# (TODO: min_score currently not used, but will likely be!)
 	def recommend(self, user_list, min_score, result_count):
+
+		start = time.time()
+
+		user_list = self.sort_user_list(user_list)
+		populated_sections_indices = [i for i in range(len(user_list)) if len(user_list[i]) != 0]
 		tmp = []
-		used_links = [[]]
+		used_links = []
 
 		while len(tmp) < result_count:
-
-			rand_index = random.randint(0,len(user_list)-1)
-			rand_link = user_list[rand_index][1]
+			
+			rand_section_index = random.choice(populated_sections_indices)
+			rand_story_index = random.randint(0,len(user_list[rand_section_index])-1)
+			rand_link = user_list[rand_section_index][rand_story_index][1]
 
 			if rand_link not in used_links:
 				used_links.append(rand_link)
 				page_recs = self.get_page_recommendation_info(rand_link)
 				
-				# This is pretty bad because we pass through user_list a lot...
 				for suggestion in page_recs:
-					already_exists = False
-					for existing_item in user_list:
-						# Check if links are the same, reject
-						if suggestion[1] == existing_item[1]:
-							already_exists = True
-							break
-					if not already_exists and len(tmp) < result_count and suggestion not in tmp:
+					leading_code_digit = int(self.get_link_code(suggestion[1])[0])
+
+					if leading_code_digit not in populated_sections_indices and len(tmp) < result_count:
 						tmp.append(suggestion)
-						print("\t. . . "+suggestion[0])
+					else:
+						links = [el[1] for el in user_list[leading_code_digit]]
+						if suggestion[1] not in links and len(tmp) < result_count:
+							tmp.append(suggestion)	
 
 		self.set_recommendations(tmp)
-		
+
+		end = time.time()
+		print("{~} Execution time for recommendations was " + str(format(end - start, "0.4f")) + " seconds.")
+	
+	# Return an array of collections (arrays) of links with leading 
+	# code digit corresponding to the index of collection in array.
+	def sort_user_list(self, li_i):
+		li_f = [[] for _ in range(10)]
+		for story in li_i:
+			leading_code_digit = int(self.get_link_code(story[1])[0])
+			li_f[leading_code_digit].append(story)
+		return li_f
 
 	# Given a story URL, grab the recommendations list data.
 	# Return a list of [title, link] pairs.
@@ -60,7 +84,7 @@ class Recommendations():
 				if "recommendations" in link:
 					link = link.replace("recommendations/", "")
 
-				link_code = link.split("/")[4].split("-")[0]
+				link_code = self.get_link_code(link).split("-")[0]
 
 				# Compare page code against potential links
 				if url.split("/")[4] != link_code:
@@ -75,6 +99,8 @@ class Recommendations():
 			print("Page recommendation went wrong! ("+url+")\n Exception: ", e)
 
 		return recs
+
+
 
 
 	# Overwrites the list of recommendations

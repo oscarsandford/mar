@@ -98,7 +98,7 @@ class Profile():
 				for i in range(len(lines)-1):
 					if "https://myanimelist.net/" in lines[i+1]:
 						if int(lines[i+2].strip()) >= min_score:
-							imported.append([lines[i].strip(), lines[i+1].strip(), lines[i+2]])
+							imported.append([lines[i].strip(), lines[i+1].strip(), int(lines[i+2].strip())])
 			storage.close()
 		except Exception as e:
 			print(print("[Profile - import_list]\nException: ",e))
