@@ -13,9 +13,9 @@ class Profile():
 		self.manga_list = []
 
 
-	# Set list of every Story the user has recorded on MAL for a given category
-	# record: TITLE -> LINK -> SCORE
-	def set_all_stories(self, category):
+	# Set list of stories that the user has recorded 
+	# on their list page for a category. 
+	def set_list(self, category):
 		print("[Profile] Setting "+category+" stories!")
 		url = "https://myanimelist.net/"+category+"list/"+self.username
 		response = requests.get(url)
@@ -89,7 +89,7 @@ class Profile():
 			if not os.path.exists(directory):
 				os.makedirs(directory)
 			print("[Profile] "+self.username+"'s list does not exist. Creating list...")
-			self.set_all_stories(category)
+			self.set_list(category)
 			self.export_list(category)
 
 		try:

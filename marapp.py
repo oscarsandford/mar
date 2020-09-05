@@ -19,14 +19,16 @@ Config.set("kivy","window_icon","./assets/marapp_icon.png")
 
 
 class RecommendationsPage(GridLayout):
+
 	query_name = ObjectProperty(None)
 	query_category = ObjectProperty(None)
 	results_list = ObjectProperty(None)
 	results_count = ObjectProperty(None)
 	results_min_score = ObjectProperty(None)
 
-	def search_for_user(self):
 
+	# Pull up a list of recommendations based on user input.
+	def search_for_user(self):
 		self.results_list.clear_widgets()
 		filepath = "./recommendation_lists/" + "rec_" + self.query_category.text + "_" + self.query_name.text + ".txt"
 		try:
@@ -35,7 +37,6 @@ class RecommendationsPage(GridLayout):
 				for i in range(len(lines)-1):
 					if "https://myanimelist.net/" in lines[i+1]:
 						btn = Button(
-							id=lines[i+1].strip(),	# We use the id to hold link
 							text=lines[i].strip(),
 							on_press=self.open_link,
 							size_hint_y=None,
@@ -51,12 +52,13 @@ class RecommendationsPage(GridLayout):
 			self.make_recommendations()
 
 
+	# (TODO: implement opening links with browser)
 	def open_link(self, instance):
 		print("TODO: implement opening links with browser")
 
 
-	# Processes a list of recommendations if the user doesn't have any, or
-	# if the client decides to generate new recommendations for a user
+	# Builds a list of recommendations if the user doesn't have any, or
+	# if the client decides to generate new recommendations for a user.
 	def make_recommendations(self):
 		if self.query_name.text == "":
 			print("[MARAPP] No input!")
@@ -86,6 +88,7 @@ class RecommendationsPage(GridLayout):
 class MARApp(App):
 	def build(self):
 		return RecommendationsPage()
+
 
 if __name__ == '__main__':
 	MARApp().run()
