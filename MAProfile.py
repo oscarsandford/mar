@@ -83,7 +83,7 @@ class Profile():
 	def import_list(self, category, min_score):
 		directory = "./story_lists/"
 		filepath = directory + "mal_" + category + "_" + self.username + ".txt"
-		li = []
+		imported = []
 
 		if not os.path.isfile(filepath):
 			if not os.path.exists(directory):
@@ -98,10 +98,10 @@ class Profile():
 				for i in range(len(lines)-1):
 					if "https://myanimelist.net/" in lines[i+1]:
 						if int(lines[i+2].strip()) >= min_score:
-							li.append([lines[i].strip(), lines[i+1].strip(), lines[i+2]])
+							imported.append([lines[i].strip(), lines[i+1].strip(), lines[i+2]])
 			storage.close()
 		except Exception as e:
 			print(print("[Profile - import_list]\nException: ",e))
 
 		# Format: [title, link, score]
-		return li
+		return imported

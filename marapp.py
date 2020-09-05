@@ -8,7 +8,7 @@ from kivy.config import Config
 
 kivy.require("1.11.1")
 
-from MAList import Profile
+from MAProfile import Profile
 from MARecommendations import Recommendations
 import webbrowser
 

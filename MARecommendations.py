@@ -9,7 +9,7 @@ class Recommendations():
 	def __init__(self, profile, category):
 		self.profile = profile
 		self.category = category
-		self.r_list = []
+		self.recommendations = []
 
 
 	# Given an existing list and parameters from the client, choose random stories
@@ -17,11 +17,10 @@ class Recommendations():
 	# (TODO: min_score currently not used, but will likely be!)
 	# ( !!! TODO: duplicate issue is abound!)
 	def recommend(self, user_list, min_score, result_count):
-		tmp_r_list = []
-		used_links = []
-		print(" [Recommendations] (1/2) Collecting some user stories...")
+		tmp = []
+		used_links = [[]]
 
-		while len(tmp_r_list) < result_count:
+		while len(tmp) < result_count:
 
 			rand_index = random.randint(0,len(user_list)-1)
 			rand_link = user_list[rand_index][1]
@@ -29,10 +28,20 @@ class Recommendations():
 			if rand_link not in used_links:
 				used_links.append(rand_link)
 				page_recs = self.get_page_recommendation_info(rand_link)
-				tmp_r_list += [tl for tl in page_recs if tl[1] not in user_list + tmp_r_list]
+				
+				# This is pretty bad because we pass through user_list a lot...
+				for suggestion in page_recs:
+					already_exists = False
+					for existing_item in user_list:
+						# Check if links are the same, reject
+						if suggestion[1] == existing_item[1]:
+							already_exists = True
+							break
+					if not already_exists and len(tmp) < result_count and suggestion not in tmp:
+						tmp.append(suggestion)
+						print("\t. . . "+suggestion[0])
 
-		print(" [Recommendations] (2/2) Creating recommendations...")
-		self.set_recommendations([page_recs for page_recs in tmp_r_list if len(page_recs) != 0])
+		self.set_recommendations(tmp)
 		
 
 	# Given a story URL, grab the recommendations list data.
@@ -71,19 +80,19 @@ class Recommendations():
 
 	# Overwrites the list of recommendations
 	def set_recommendations(self, li):
-		self.r_list = li
+		self.recommendations = li
 
 
 	# Returns the list of recommendations
 	def get_recommendations(self):
-		return self.r_list
+		return self.recommendations
 
 
 	# Export existing recommendations list for this category to plaintext file
 	def export_recommendations(self):
 		filepath = "./recommendation_lists/" + "rec_" + self.category + "_" + self.profile.username + ".txt"
 		with open(filepath, "w", errors="replace") as storage:
-			for story in self.r_list:
+			for story in self.get_recommendations():
 				# Format: [title, link]
 				s = str(story[0]) + "\n" + str(story[1]) + "\n\n"
 				storage.write(s)
