@@ -26,6 +26,9 @@ class Recommendations():
 	# (TODO: min_score currently not used, but will likely be!)
 	def recommend(self, user_list, min_score, result_count):
 
+		# I think that this algorithm would only benefit if we export lists a certain
+		# way such that they have already been sorted in the way we want before we access them.
+
 		start = time.time()
 
 		user_list = self.sort_user_list(user_list)
