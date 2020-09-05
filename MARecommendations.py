@@ -1,5 +1,5 @@
 from MAList import Story
-from random import shuffle
+import random
 
 class Recommendations():
 
@@ -16,31 +16,29 @@ class Recommendations():
 	# links. Add any of these links to the list of recommendations, if not already seen.
 	def recommend(self, user_links, category, min_score, result_count):
 		recommended_links = []
-		
+		used_indices = []
 		print("[Recommendations] (1/2) Collecting some user stories...")
 
-		shuffle(user_links)
-		i = 0
+		while len(recommended_links) < result_count:
+			rand_index = random.randint(0,len(user_links)-1)
+			rand_link = user_links[rand_index]
 
-		for page in user_links:
-			story = Story(page)
-			page_links = story.get_page_recommendation_links()
-			i = 0
-
-			while len(recommended_links) < result_count and i < len(page_links):
-				link = page_links[i]
-				if link not in user_links + recommended_links:
-					recommended_links.append(link)
-				i += 1
-
-			if len(recommended_links) >= result_count:
-				break
+			if rand_index not in used_indices:
+				story = Story(rand_link)
+				page_links = story.get_page_recommendation_links()
+				recommended_links += [link for link in page_links if link not in user_links + recommended_links]
+				used_indices.append(rand_index)
 
 		print("[Recommendations] (2/2) Creating recommendations...")
+		self.set_recommendations([Story(link) for link in recommended_links], category)
 
-		for link in recommended_links:
-			story = Story(link)
-			self.get_recommendations(category).append(story)
+
+	# Overwrites the appropriate list of recommendations, defaulting to anime
+	def set_recommendations(self, li, category):
+		if category == "manga":
+			self.manga_r_list = li
+		else:
+			self.anime_r_list = li
 
 
 	# Returns the appropriate list of recommendations, defaulting to anime

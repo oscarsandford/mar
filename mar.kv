@@ -43,7 +43,7 @@
 				markup: True
 			Slider:
 				id: r_count_slider
-				min: 0
+				min: 1
 				max: 10
 				step: 1
 				cursor_size: ("16sp","16sp")
@@ -54,7 +54,7 @@
 			size_hint_y: None
 			height: "40dp"
 			Label:
-				text: "with stories I scored ≥[color=ff0099]"+str(int(r_min_score_slider.value))+"[/color]"
+				text: "with my scores at least [color=ff0099]"+str(int(r_min_score_slider.value))+"[/color]"
 				font_size: "12sp"
 				color: [0,0,0,1]
 				markup: True

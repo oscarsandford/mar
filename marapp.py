@@ -15,6 +15,7 @@ import webbrowser
 Config.set("graphics", "width", "420")
 Config.set("graphics", "height", "720")
 Config.set("graphics", "resizable", False)
+Config.set("kivy","window_icon","./assets/marapp_icon.png")
 
 
 class RecommendationsPage(GridLayout):
