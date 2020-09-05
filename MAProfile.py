@@ -2,6 +2,11 @@ import os.path
 import requests
 from bs4 import BeautifulSoup
 
+TITLE_INDEX = 0
+LINK_INDEX = 1
+SCORE_INDEX = 2
+
+
 class Profile():
 
 	# Create a Profile for some given user with a username.
@@ -72,7 +77,7 @@ class Profile():
 		with open(filepath, "w", errors="replace") as storage:
 			for story in li:
 				# Format: [title, link, score]
-				s = str(story[0]) + "\n" + str(story[1]) + "\n" + str(story[2]) + "\n\n"
+				s = str(story[TITLE_INDEX]) + "\n" + str(story[LINK_INDEX]) + "\n" + str(story[SCORE_INDEX]) + "\n\n"
 				storage.write(s)
 
 		storage.close()
@@ -96,9 +101,9 @@ class Profile():
 			with open(filepath, "r") as storage:
 				lines = storage.readlines()
 				for i in range(len(lines)-1):
-					if "https://myanimelist.net/" in lines[i+1]:
-						if int(lines[i+2].strip()) >= min_score:
-							imported.append([lines[i].strip(), lines[i+1].strip(), lines[i+2]])
+					if "https://myanimelist.net/" in lines[i+LINK_INDEX]:
+						if int(lines[i+SCORE_INDEX].strip()) >= min_score:
+							imported.append([lines[i+TITLE_INDEX].strip(), lines[i+LINK_INDEX].strip(), lines[i+SCORE_INDEX]])
 			storage.close()
 		except Exception as e:
 			print(print("[Profile - import_list]\nException: ",e))

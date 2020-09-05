@@ -64,7 +64,7 @@ class RecommendationsPage(GridLayout):
 			print("[MARAPP] No input!")
 			return
 
-		print("\n(1/3) Collecting "+self.name.text+"'s "+self.category.text+"...")
+		print("\n\033[1m(1/3)\033[0m Collecting \033[95m"+self.name.text+"\033[0m's "+self.category.text+"...")
 		p = Profile(self.name.text)
 		stories = p.import_list(self.category.text, int(self.results_min_score.value))
 
@@ -72,13 +72,13 @@ class RecommendationsPage(GridLayout):
 			print("[MARAPP] No stories!")
 			return
 
-		print("(2/3) Creating "+self.category.text+" recommendations with "+str(len(stories))+" stories...")
+		print("(\033[1m2/3)\033[0m Creating "+self.category.text+" recommendations with "+str(len(stories))+" stories...")
 		r = Recommendations(p, self.category.text)
 		r.recommend(stories, int(self.results_min_score.value), int(self.results_count.value))
 
-		print("(3/3) Exporting...")
+		print("\033[1m(3/3)\033[0m Exporting...")
 		r.export_recommendations()
-		print("(@) Complete!")
+		print("(\033[92m@\033[0m) Complete!")
 
 
 	def exit_app(self, instance):
