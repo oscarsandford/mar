@@ -50,7 +50,7 @@ class Recommendations():
 							break
 					if not already_exists and len(tmp) < result_count and suggestion not in tmp:
 						tmp.append(suggestion)
-						print("\t. . . "+suggestion[TITLE_INDEX])
+						print("\t\033[2m. . . \033[0m"+suggestion[TITLE_INDEX])
 
 		self.set_recommendations(tmp)
 
@@ -66,7 +66,7 @@ class Recommendations():
 		recs = []
 
 		try:
-			section = soup.find("ul", {"class":""+self.category+"-slide js-"+self.category+"-slide"})
+			section = soup.find("ul", {"class":"anime-slide js-anime-slide"})
 			all_recommended = section.find_all("a", {"class":"link bg-center"})
 			tries = 0
 

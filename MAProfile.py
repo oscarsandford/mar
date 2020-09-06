@@ -47,7 +47,7 @@ class Profile():
 				my_score = int(scores[i].split("\"")[0].replace(",", ""))
 				
 				# Format: [title, link, score]
-				print("["+str(i-1)+"]\t\033[2mAppending . . . \033[0m"+title)
+				print("\t\033[2mAppending . . . \033[0m"+title)
 				stories.append([title, link, my_score])
 
 		except Exception as e:
