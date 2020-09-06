@@ -1,7 +1,9 @@
 import os.path
 import requests, random, time
+import colorama
 from bs4 import BeautifulSoup
 
+colorama.init()
 TITLE_INDEX = 0
 LINK_INDEX = 1
 SCORE_INDEX = 2
@@ -53,7 +55,7 @@ class Recommendations():
 		self.set_recommendations(tmp)
 
 		end = time.time()
-		print("\t(\033[92m@\033[0m) Recommendations compiled in \033[94m" + str(format(end-start, "0.4f")) + "\033[0m seconds.")
+		print("\t(\033[92m@\033[0m) Recommendations compiled in \033[96m" + str(format(end-start, "0.4f")) + "\033[0m seconds.")
 		
 
 	# Given a story URL, grab the recommendations list data.

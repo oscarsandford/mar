@@ -1,7 +1,9 @@
 import os.path
 import requests
+import colorama
 from bs4 import BeautifulSoup
 
+colorama.init()
 TITLE_INDEX = 0
 LINK_INDEX = 1
 SCORE_INDEX = 2
@@ -21,7 +23,7 @@ class Profile():
 	# Set list of stories that the user has recorded 
 	# on their list page for a category. 
 	def set_list(self, category):
-		print("[Profile] Setting "+category+" stories!")
+		print("[\033[33mProfile\033[0m] Setting stories for "+category+".")
 		url = "https://myanimelist.net/"+category+"list/"+self.username
 		response = requests.get(url)
 		soup = BeautifulSoup(response.text, "html.parser")
@@ -45,11 +47,11 @@ class Profile():
 				my_score = int(scores[i].split("\"")[0].replace(",", ""))
 				
 				# Format: [title, link, score]
-				print("["+str(i-1)+"]\tAppending . . . "+title)
+				print("["+str(i-1)+"]\t\033[2mAppending . . . \033[0m"+title)
 				stories.append([title, link, my_score])
 
 		except Exception as e:
-			print("[Profile - set_all_stores]\nException: ",e)
+			print(" [\033[33mProfile\033[0m] set_list\n Exception: ",e)
 
 		if category == "manga":
 			self.manga_list = stories
@@ -93,7 +95,7 @@ class Profile():
 		if not os.path.isfile(filepath):
 			if not os.path.exists(directory):
 				os.makedirs(directory)
-			print("[Profile] "+self.username+"'s list does not exist. Creating list...")
+			print("[\033[33mProfile\033[0m] "+self.username+"'s list does not exist. Creating list...")
 			self.set_list(category)
 			self.export_list(category)
 
@@ -106,7 +108,7 @@ class Profile():
 							imported.append([lines[i+TITLE_INDEX].strip(), lines[i+LINK_INDEX].strip(), lines[i+SCORE_INDEX]])
 			storage.close()
 		except Exception as e:
-			print(print("[Profile - import_list]\nException: ",e))
+			print(" [\033[33mProfile\033[0m] import_list\n Exception: ",e)
 
 		# Format: [title, link, score]
 		return imported

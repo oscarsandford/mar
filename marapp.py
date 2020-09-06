@@ -11,7 +11,9 @@ kivy.require("1.11.1")
 from MAProfile import Profile
 from MARecommendations import Recommendations
 import webbrowser
+import colorama
 
+colorama.init()
 Config.set("graphics", "width", "420")
 Config.set("graphics", "height", "720")
 Config.set("graphics", "resizable", False)
@@ -61,7 +63,7 @@ class RecommendationsPage(GridLayout):
 	# if the client decides to generate new recommendations for a user.
 	def make_recommendations(self):
 		if self.name.text == "":
-			print("[MARAPP] No input!")
+			print("[\033[36mMAR\033[0m] No input!")
 			return
 
 		print("\n\033[1m(1/3)\033[0m Collecting \033[95m"+self.name.text+"\033[0m's "+self.category.text+"...")
@@ -69,10 +71,10 @@ class RecommendationsPage(GridLayout):
 		stories = p.import_list(self.category.text, int(self.results_min_score.value))
 
 		if len(stories) == 0:
-			print("[MARAPP] No stories!")
+			print("[\033[36mMAR\033[0m] No stories!")
 			return
 
-		print("(\033[1m2/3)\033[0m Creating "+self.category.text+" recommendations with "+str(len(stories))+" stories...")
+		print("(\033[1m2/3)\033[0m Creating "+self.category.text+" recommendations with \033[96m"+str(len(stories))+"\033[0m stories...")
 		r = Recommendations(p, self.category.text)
 		r.recommend(stories, int(self.results_min_score.value), int(self.results_count.value))
 
@@ -87,6 +89,7 @@ class RecommendationsPage(GridLayout):
 
 class MARApp(App):
 	def build(self):
+		print("[\033[36mMAR\033[0m] Launching MAR...")
 		return RecommendationsPage()
 
 
