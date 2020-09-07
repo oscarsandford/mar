@@ -68,15 +68,15 @@ class RecommendationsPage(GridLayout):
 
 		print("\n\033[1m(1/3)\033[0m Collecting \033[95m"+self.name.text+"\033[0m's "+self.category.text+"...")
 		p = Profile(self.name.text)
-		stories = p.import_list(self.category.text, int(self.results_min_score.value))
+		all_stories, filtered_stories = p.import_list(self.category.text, int(self.results_min_score.value))
 
-		if len(stories) == 0:
+		if len(all_stories) == 0:
 			print("[\033[36mMAR\033[0m] No stories!")
 			return
 
-		print("(\033[1m2/3)\033[0m Creating "+self.category.text+" recommendations with \033[96m"+str(len(stories))+"\033[0m stories...")
+		print("(\033[1m2/3)\033[0m Creating "+self.category.text+" recommendations with \033[96m"+str(len(filtered_stories))+"\033[0m stories...")
 		r = Recommendations(p, self.category.text)
-		r.recommend(stories, int(self.results_min_score.value), int(self.results_count.value))
+		r.recommend(all_stories, filtered_stories, int(self.results_count.value), int(self.results_count.max))
 
 		print("\033[1m(3/3)\033[0m Exporting...")
 		r.export_recommendations()

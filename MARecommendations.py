@@ -17,39 +17,37 @@ class Recommendations():
 		self.profile = profile
 		self.category = category
 		self.recommendations = []
+		self.directory = "./recommendation_lists/"
+		self.filepath = self.directory + "rec_" + self.category + "_" + self.profile.username + ".txt"
 
 
 	# Given an existing list and parameters from the client, choose random stories
 	# from which to draw recommendations from. Add these stories to the class's list.
-	def recommend(self, user_list, target_count, max_attempts):
+	def recommend(self, all_list, filtered_list, target_count, max_attempts):
 		start = time.time()
 		tmp = []
-		used_links = [[]]
 		attempt_count = 0
 
 		while len(tmp) < target_count and attempt_count < max_attempts:
 
-			rand_index = random.randint(0,len(user_list)-1)
-			rand_link = user_list[rand_index][LINK_INDEX]
-
-			if rand_link not in used_links:
-				used_links.append(rand_link)
-				page_recs = self.get_page_recommendations(rand_link, max_attempts)
-				
-				# Although we iterate through the use list a lot here, I have tried to
-				# sort the list by link code leading digit, and only look at leading digit
-				# sections to cut down on runtime. I concluded that noticeable improvement
-				# would require rewriting the export format. Maybe one day! 
-				for suggestion in page_recs:
-					already_exists = False
-					for existing_item in user_list:
-						# Check: if links are the same, reject
-						if suggestion[LINK_INDEX] == existing_item[LINK_INDEX]:
-							already_exists = True
-							break
-					if not already_exists and len(tmp) < target_count and suggestion not in tmp:
-						tmp.append(suggestion)
-						print("\t\033[2m. . . \033[0m"+suggestion[TITLE_INDEX])
+			rand_index = random.randint(0,len(filtered_list)-1)
+			rand_link = filtered_list[rand_index][LINK_INDEX]
+			page_suggestions = self.get_page_recommendations(rand_link, max_attempts)
+			
+			# Although we iterate through the use list a lot here, I have tried to
+			# sort the list by link code leading digit, and only look at leading digit
+			# sections to cut down on runtime. I concluded that noticeable improvement
+			# would require rewriting the export format. Maybe one day! 
+			for suggestion in page_suggestions:
+				already_exists = False
+				for existing_item in all_list:
+					# Check: if links are the same, reject
+					if suggestion[LINK_INDEX] == existing_item[LINK_INDEX]:
+						already_exists = True
+						break
+				if not already_exists and len(tmp) < target_count and suggestion not in tmp:
+					tmp.append(suggestion)
+					print("\t\033[2m. . . \033[0m"+suggestion[TITLE_INDEX])
 
 			attempt_count += 1
 
@@ -127,14 +125,12 @@ class Recommendations():
 
 	# Export existing recommendations list for this category to plaintext file
 	def export_recommendations(self):
-		directory = "./recommendation_lists/"
-		if not os.path.exists(directory):
-			os.makedirs(directory)
-		filepath = directory + "rec_" + self.category + "_" + self.profile.username + ".txt"
+		if not os.path.exists(self.directory):
+			os.makedirs(self.directory)
 		
-		with open(filepath, "w", errors="replace") as storage:
+		with open(self.filepath, "w", errors="replace") as storage:
 			for story in self.get_recommendations():
 				# Format: [title, link]
-				s = str(story[TITLE_INDEX]) + "\n" + str(story[LINK_INDEX]) + "\n\n"
+				s = str(story[TITLE_INDEX])+"\n"+str(story[LINK_INDEX])+"\n\n"
 				storage.write(s)
 		storage.close()

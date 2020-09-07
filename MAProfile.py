@@ -18,6 +18,7 @@ class Profile():
 		self.username = username.lower()
 		self.anime_list = []
 		self.manga_list = []
+		self.directory = "./story_lists/"
 
 
 	# Set list of stories that the user has recorded 
@@ -51,7 +52,7 @@ class Profile():
 				stories.append([title, link, my_score])
 
 		except Exception as e:
-			print(" [\033[33mProfile\033[0m] set_list\n Exception: ",e)
+			print(" [\033[33mProfile\033[0m] set_list exception: ",e)
 
 		if category == "manga":
 			self.manga_list = stories
@@ -67,19 +68,23 @@ class Profile():
 			return self.anime_list
 
 
+	# Returns a filepath for the user's manga or anime list plaintext file
+	def get_filepath(self, category):
+		return self.directory + "mal_" + category + "_" + self.username + ".txt"
+
+
 	# Export stories to plaintext file. Don't do this if
 	# the list is empty to prevent created garbage empty lists.
-	# Exporting guarantees we have proper existing directory.
+	# Exporting guarantees existing directory from import_list function.
 	def export_list(self, category):
-		li = self.get_list(category)
-		if len(li) == 0:
+		exported = self.get_list(category)
+		if len(exported) == 0:
 			return
 
-		filepath = "./story_lists/" + "mal_" + category + "_" + self.username + ".txt"
-		with open(filepath, "w", errors="replace") as storage:
-			for story in li:
+		with open(self.get_filepath(category), "w", errors="replace") as storage:
+			for story in exported:
 				# Format: [title, link, score]
-				s = str(story[TITLE_INDEX]) + "\n" + str(story[LINK_INDEX]) + "\n" + str(story[SCORE_INDEX]) + "\n\n"
+				s = str(story[TITLE_INDEX])+"\n"+str(story[LINK_INDEX])+"\n"+str(story[SCORE_INDEX])+"\n\n"
 				storage.write(s)
 
 		storage.close()
@@ -88,27 +93,28 @@ class Profile():
 	# Import a list from filepath with stories' score >= min_score. If this Profile's instance list doesn't
 	# exist, get their stories from MAL and export them, then reimport. Create directory if needed.
 	def import_list(self, category, min_score):
-		directory = "./story_lists/"
-		filepath = directory + "mal_" + category + "_" + self.username + ".txt"
-		imported = []
+		all_imported = []
+		filtered_imported = []
 
-		if not os.path.isfile(filepath):
-			if not os.path.exists(directory):
-				os.makedirs(directory)
+		if not os.path.isfile(self.get_filepath(category)):
+			if not os.path.exists(self.directory):
+				os.makedirs(self.directory)
 			print("[\033[33mProfile\033[0m] "+self.username+"'s list does not exist. Creating list...")
 			self.set_list(category)
 			self.export_list(category)
 
 		try:
-			with open(filepath, "r") as storage:
+			with open(self.get_filepath(category), "r") as storage:
 				lines = storage.readlines()
 				for i in range(len(lines)-1):
 					if "https://myanimelist.net/" in lines[i+LINK_INDEX]:
-						if int(lines[i+SCORE_INDEX].strip()) >= min_score:
-							imported.append([lines[i+TITLE_INDEX].strip(), lines[i+LINK_INDEX].strip(), lines[i+SCORE_INDEX]])
+						# Format: [title, link, score]
+						entry = [lines[i+TITLE_INDEX].strip(), lines[i+LINK_INDEX].strip(), int(lines[i+SCORE_INDEX].strip())]
+						if entry[SCORE_INDEX] >= min_score:
+							filtered_imported.append(entry)
+						all_imported.append(entry)
 			storage.close()
 		except Exception as e:
-			print(" [\033[33mProfile\033[0m] import_list\n Exception: ",e)
+			print(" [\033[33mProfile\033[0m] import_list exception: ",e)
 
-		# Format: [title, link, score]
-		return imported
+		return all_imported, filtered_imported
