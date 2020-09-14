@@ -1,0 +1,15 @@
+beautifulsoup4==4.9.1
+bs4==0.0.1
+certifi==2020.6.20
+chardet==3.0.4
+colorama==0.4.3
+docutils==0.16
+idna==2.10
+Kivy==2.0.0rc3
+Kivy-examples==2.0.0rc3
+Kivy-Garden==0.1.4
+Pillow==7.2.0
+Pygments==2.6.1
+requests==2.24.0
+soupsieve==2.0.1
+urllib3==1.25.10
