@@ -12,14 +12,18 @@ This project uses Python and various libraries to extract page data from profile
 <hr/>
 
 ## Installation
-As of now, there is no convenient way to install a polished version of this project besides downloading the repository and running the Kivy app through a terminal. In the future, builds will be released with ready-to-go executables and/or installers.
-
+The release package includes the latest build with resources to run the Kivy app as is. For development purposes, clone the source code and install the requirements.
+```
+git clone https://github.com/oscarsandford/Many-Anime-Recommendations.git
+```
 In its current state, this project requires installation of the following:
 - [Python 3](https://www.python.org/download/releases/3.0/) (naturally)
 - [Kivy 1.11.1](https://kivy.org/#home) (for the application itself)
 - [Beautiful Soup 4](https://www.crummy.com/software/BeautifulSoup/) (for reading HTML)
 - [Requests](https://3.python-requests.org/) (to ask nicely)
 - [Colorama](https://github.com/tartley/colorama) (makes terminal output more colourful!)
+
+Once cloned, dependency installation can be swiftly accomplished with `pip install -r requirements.txt`.
 
 Python 3.7 is recommended to work smoothly with Kivy 1.11.1. If Python 3.8 is installed, and you are having issues with Kivy, try installing Kivy master with:
 ```
@@ -30,10 +34,10 @@ pip install kivy[base] kivy_examples --pre --extra-index-url https://kivy.org/do
 ## Usage
 
 ### Command Line
-Deprecated.
+Execute `python marapp.py` in a terminal to launch the Kivy app.
 
 ### Kivy Application
-The Kivy app can be launched from the terminal using Python. Execute `python marapp.py` in a terminal to launch. Many features regarding the interface and backend functionality are still work in progress.
+The Kivy executable in the latest release build can be started via the included shortcut. Same effect as starting the program from the terminal.
 
 ## Authors
 Created by Oscar Sandford.
