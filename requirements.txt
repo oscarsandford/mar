@@ -8,7 +8,7 @@ idna==2.10
 Kivy==2.0.0rc3
 Kivy-examples==2.0.0rc3
 Kivy-Garden==0.1.4
-Pillow==7.2.0
+Pillow>=8.1.1
 Pygments==2.6.1
 requests==2.24.0
 soupsieve==2.0.1
