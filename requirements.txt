@@ -9,7 +9,7 @@ Kivy==2.0.0rc3
 Kivy-examples==2.0.0rc3
 Kivy-Garden==0.1.4
 Pillow>=8.1.1
-Pygments==2.6.1
+Pygments==2.7.4
 requests==2.24.0
 soupsieve==2.0.1
 urllib3==1.25.10
